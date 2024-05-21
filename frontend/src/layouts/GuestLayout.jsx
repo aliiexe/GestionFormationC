@@ -1,22 +1,29 @@
 import  {Outlet} from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Dialog } from '@headlessui/react'
+import { Button, Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { axiosclient } from '../api/axiosClient'
-
+import {Link} from 'react-router-dom'
+import './GUEST.css'
 const navigation = [
   { name: 'Espace entreprise', href: '#' },
   { name: 'Espace office', href: '#' }
 ]
 
 export default function GuestLayout(){
-  const [user,setuser]=useState(null)
+  const [user,setuser]=useState()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-    useEffect(()=>{
-      axiosclient.get('/api/user').then((a)=>{
-    setuser(a.data)
-      })
-    },[])
+useEffect(()=>{
+  axiosclient.get('/api/user').then((a)=>{
+setuser(a.data)
+  })
+},[])
+const logout=()=>{
+  axiosclient.post('/logout').then((a)=>{
+    window.localStorage.removeItem('token')
+    setuser()
+  })
+}
     return(
         <>
         <header className="absolute inset-x-0 top-0 z-50">
@@ -43,17 +50,38 @@ export default function GuestLayout(){
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+              <a key={item.name} href={item.href} className={"text-sm font-semibold leading-6 text-gray-900"}>
                 {item.name}
               </a>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            {!user?<a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-          Se connecter <span aria-hidden="true">&rarr;</span>
-            </a>:<a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-          {user.name} <span aria-hidden="true">&rarr;</span></a>}
-          </div>
+   
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+      <a  className="text-sm font-semibold leading-6 text-gray-900">
+        <span>
+        {user ? (
+            <button onClick={logout} style={{"backgroundColor":"blue","border":"2px solid blue","borderRadius":"4px"
+              ,"padding":"2px 9px 2px 9px","margin":"1x 18px 1px"
+            }}><span style={{"color":"white"}}>Se deconnecter</span></button>
+          ) : (
+           ""
+          )}
+          
+          {!user ? (
+            <Link to="/Login">Se connecter</Link> 
+          ) : (
+           <span style={{"marginLeft":"15px"}}>{user.name}</span>
+          )}
+              <span aria-hidden="true">&rarr;</span>
+        
+        </span>
+    
+      </a>
+    </div>
+      
+    
+    </div>
         </nav>
         <Dialog className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <div className="fixed inset-0 z-50" />
