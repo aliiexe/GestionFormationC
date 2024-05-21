@@ -48,18 +48,17 @@ const Form = ({ setIsOpen, setName, setOpenToS }) => {
 const onSubmit = (data) => {
   axiosclient.get('sanctum/csrf-cookie').then(()=>{
 axiosclient.post('/login',data).then((a)=>{
-  console.log(a)
   if(a.status==200 || a.status==204){
     window.localStorage.setItem('token','true')
    
   }
-  axiosclient.get('/api/user').then(a=>{
-  if(a.roles_id==1){
+  if(data.email=="x@gmail.com"){
     navigate('/intervenants')
   }else{
     navigate('/')
   }
-  })
+ 
+
 })})
 console.log(data)
     setUser(data);
