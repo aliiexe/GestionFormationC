@@ -7,6 +7,7 @@ import './Form.css';
 import { useState } from 'react';
 import { axiosclient } from '../../../api/axiosClient.jsx'; 
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const formFields = [
   
@@ -91,7 +92,8 @@ console.log(data)
          
         </div>
       ))}
-      <input type="submit" value="Creer compte" />
+      <input type="submit" value="Se connecter" />
+      <div style={{"textAlign":"center","textDecoration":"underline"}}><Link to={"/register"}>Create account</Link></div>
     </form>
   );
 };

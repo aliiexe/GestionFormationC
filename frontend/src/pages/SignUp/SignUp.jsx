@@ -5,20 +5,29 @@ import './SignUp.css'
 import { animateWordChange } from './animations/animateWords'
 import { gsapLandingAnimation } from './animations/gsapAnimation'
 import {termsOfService} from './ToS.js'
+import { useNavigate } from 'react-router'
 
 
 const SignUp = () => {
-
+    const navigate=useNavigate()
     const [isOpen, setIsOpen] = useState(false)
     const [openToS, setOpenToS] = useState(false)
     const [name,setName] = useState("")
 
     useEffect(()=> {
+      
+
+       
         var mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
         if(!mediaQuery.matches) {
             gsapLandingAnimation();
         }
         animateWordChange();
+        if(window.localStorage.getItem('token')){
+            navigate('/')
+        }else{
+            return
+        }
     }, [])
 
     return (
