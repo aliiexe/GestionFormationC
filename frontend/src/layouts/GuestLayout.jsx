@@ -1,4 +1,4 @@
-import  {Outlet} from 'react-router-dom'
+import  {Outlet, useLocation} from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Button, Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -13,11 +13,12 @@ const navigation = [
 export default function GuestLayout(){
   const [user,setuser]=useState()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const location=useLocation();
 useEffect(()=>{
   axiosclient.get('/api/user').then((a)=>{
 setuser(a.data)
   })
-},[])
+},[location])
 const logout=()=>{
   axiosclient.post('/logout').then((a)=>{
     window.localStorage.removeItem('token')
