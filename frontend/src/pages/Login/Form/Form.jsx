@@ -54,7 +54,7 @@ axiosclient.post('/login',data).then((a)=>{
    
   }
   axiosclient.get('/api/user').then(a=>{
-  if(a.roles_id=1){
+  if(a.roles_id==1){
     navigate('/intervenants')
   }else{
     navigate('/')
