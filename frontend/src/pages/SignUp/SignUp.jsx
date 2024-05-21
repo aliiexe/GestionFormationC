@@ -38,7 +38,7 @@ const SignUp = () => {
                 </p>
             </div>
             <div className="sign-up-right sign-up-column">
-                 <div><img src='../../../public/images/OFPPT.png' height={"100px"}></img></div>
+                 <div><img src='../../../public/images/OFPPT.png' className='img' style={{"height":"50px !important"}}></img></div>
                 <Form setName={setName} setIsOpen={setIsOpen} setOpenToS={setOpenToS} />
                
             </div>

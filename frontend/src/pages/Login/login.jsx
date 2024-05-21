@@ -20,8 +20,10 @@ const Login = () => {
         }
         animateWordChange();
     }, [])
-
+   
+  
     return (
+        
         <div className='sign-up-page'>
             <main className='sign-up-container'>
             <div  className="sign-up-left sign-up-column">
@@ -38,7 +40,7 @@ const Login = () => {
                 </p>
             </div>
             <div className="sign-up-right sign-up-column">
-                 <div><img src='../../../public/images/OFPPT.png' height={"100px"}></img></div>
+                 <div><img src='../../../public/images/OFPPT.png' className='img'></img></div>
                 <Form setName={setName} setIsOpen={setIsOpen} setOpenToS={setOpenToS} />
                
             </div>

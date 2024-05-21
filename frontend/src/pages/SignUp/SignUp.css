@@ -80,7 +80,10 @@
   vertical-align: top;
   margin: 0;
 }
-
+ 
+.img{
+  height:100px !important
+}
 .word {
   position: absolute; /* makes words stack on top of each other */
 
@@ -98,7 +101,6 @@
    font-size: 1.5rem !important;
   }
  }
- 
 
 .letter {
   display: inline-block;
