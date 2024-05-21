@@ -5,10 +5,12 @@ import './login.css'
 import { animateWordChange } from './animations/animateWords'
 import { gsapLandingAnimation } from './animations/gsapAnimation'
 import {termsOfService} from './ToS.js'
+import { useNavigate } from 'react-router'
+
 
 
 const Login = () => {
-
+    const navigate=useNavigate()
     const [isOpen, setIsOpen] = useState(false)
     const [openToS, setOpenToS] = useState(false)
     const [name,setName] = useState("")
@@ -19,6 +21,11 @@ const Login = () => {
             gsapLandingAnimation();
         }
         animateWordChange();
+        if(window.localStorage.getItem('token')){
+            navigate('/')
+        }else{
+            return
+        }
     }, [])
    
   
@@ -26,11 +33,11 @@ const Login = () => {
         
         <div className='sign-up-page'>
             <main className='sign-up-container'>
-            <div  className="sign-up-left sign-up-column">
+            <div  className="sign-up-left sign-up-column none">
                 <h1 >
                     <span>Formation &nbsp;
                         <span  >
-                        <span className="word" style={{color: "#87b3fe"}}>continue</span>
+                        <span className="word" style={{color: "#008B45"}}>continue</span>
                         <span className="word">excitant</span></span>
                     </span>
                     <span>pour vous enrichir</span>
