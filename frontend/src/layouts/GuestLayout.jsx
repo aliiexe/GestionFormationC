@@ -12,11 +12,11 @@ const navigation = [
 export default function GuestLayout(){
   const [user,setuser]=useState(null)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-useEffect(()=>{
-  axiosclient.get('/api/user').then((a)=>{
-setuser(a.data)
-  })
-},[])
+    useEffect(()=>{
+      axiosclient.get('/api/user').then((a)=>{
+    setuser(a.data)
+      })
+    },[])
     return(
         <>
         <header className="absolute inset-x-0 top-0 z-50">

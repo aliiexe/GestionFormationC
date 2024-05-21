@@ -28,7 +28,16 @@ class IntervenantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $intevenant = new Intervenant();
+        $intevenant->nom = $request->nom;
+        $intevenant->matricule = $request->matricule;
+        $intevenant->datenaissance = $request->datenaissance;
+        $intevenant->typeintervenant = $request->typeintervenant;
+        $intevenant->status = $request->status;
+        $intevenant->users_id = 3;
+        $intevenant->etablissements_id = 2;
+        $intevenant->status = '1';
+        $intevenant->save();
     }
 
     /**
@@ -52,14 +61,24 @@ class IntervenantController extends Controller
      */
     public function update(Request $request, Intervenant $intervenant)
     {
-        //
+        $intervenant = Intervenant::find($intervenant)->first();
+        $intervenant->nom = $request->nom;
+        $intervenant->matricule = $request->matricule;
+        $intervenant->datenaissance = $request->datenaissance;
+        $intervenant->typeintervenant = $request->typeintervenant;
+        $intervenant->status = $request->status;
+        $intervenant->users_id = 3;
+        $intervenant->etablissements_id = 2;
+        $intervenant->status = '1';
+        $intervenant->save();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Intervenant $intervenant)
+    public function destroy($intervenant)
     {
-        //
+        $intervenant = Intervenant::find($intervenant);
+        $intervenant->delete();
     }
 }

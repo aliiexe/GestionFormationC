@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('intervenants', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('users_id');
+            $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('etablissements_id');
+            $table->unsignedBigInteger('etablissements_id');
             $table->foreign('etablissements_id')->references('id')->on('etablissements')->onDelete('cascade');
             $table->string('matricule');
             $table->string('nom');

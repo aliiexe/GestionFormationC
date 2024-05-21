@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('domaines_id');
+            $table->unsignedBigInteger('domaines_id');
             $table->foreign('domaines_id')->references('id')->on('domaines')->onDelete('cascade');
             $table->string('intitule_theme');
             $table->integer('duree_formation');

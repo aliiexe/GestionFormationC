@@ -1,6 +1,5 @@
 import './Formateur.css'
 import {useEffect, useRef, useState} from 'react'
-import axiosClient from '../api/axiosClient';
 import {Button} from 'primereact/button';
 import {Dialog} from 'primereact/dialog';
 import {Toast} from 'primereact/toast';
@@ -9,15 +8,15 @@ import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { InputIcon } from 'primereact/inputicon';
 import { IconField } from 'primereact/iconfield';
-import CreateFormateur from './CreateFormateur';
-import EditFormateur from './EditFormateur';
-
+import CreateIntervenant from './CreateIntervenant';
+import EditIntervenant from './EditIntervenant';
+import { axiosclient } from '../../api/axiosClient'
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { confirmDialog } from 'primereact/confirmdialog';
         
 
 
-export default function Formateur() {
+export default function GestionIntervenants() {
     const [visible, setVisible] = useState(false);
     const [editVisible, setEditVisible] = useState(false);
 
@@ -43,13 +42,14 @@ export default function Formateur() {
     const [selectedIntervenants, setSelectedIntervenants] = useState(null);
     const [editIntervenant, setEditIntervenant] = useState(null);
     const [etablissement,setEtablissement] = useState([]);
+    const [intervenants,setIntervenants] = useState([]);
     const [intervenant,setIntervenant] = useState({
         matricule: '',
         nom: '',
-        dateNaissance: '',
-        type_intervenant: '',
-        etablissement_id: '',
-        user_id: '',
+        datenaissance: '',
+        typeintervenant: '',
+        etablissements_id: '',
+        user_id: 1,
     });
     const [formValues, setFormValues] = useState(intervenant);
     
@@ -75,7 +75,7 @@ export default function Formateur() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axiosClient.post('/intervenant', intervenant).then((a) => {
+        const response = await axiosclient.post('/intervenant', intervenant).then((a) => {
             setVisible(false)
             console.log(a)
             toast.current.show({
@@ -95,7 +95,7 @@ export default function Formateur() {
             icon: 'pi pi-exclamation-triangle',
             accept: async () => {
                 selectedIntervenants.map(async (a) => {
-                    const response = await axiosClient.delete(`/formateur/${a.matricule}`).then((a) => {
+                    const response = await axiosclient.delete(`/intervenant/${a.id}`).then((a) => {
                         console.log(a)
                         toast.current.show({
                             severity: 'success',
@@ -115,7 +115,7 @@ export default function Formateur() {
 
     const handleEdit = async (e) => {
         e.preventDefault();
-        const response = await axiosClient.put(`/formateur/${editIntervenant.matricule}`, editIntervenant).then((a) => {
+        const response = await axiosclient.put(`/intervenant/${editIntervenant.id}`, editIntervenant).then((a) => {
             setEditVisible(false);
             console.log(a);
             toast.current.show({
@@ -143,15 +143,14 @@ export default function Formateur() {
             <div style={{ display:'flex',gap:'12px'}}>
             <div style={{ display:'flex',gap:'10px'}}>
               {selectedIntervenants && selectedIntervenants.length > 0 && (
-                <Button icon="pi pi-times" onClick={handleDelete} severity="danger" aria-label="Cancel" />
+                <Button className='btn1' icon="pi pi-times" onClick={handleDelete} severity="danger" aria-label="Cancel" />
               )}
               {selectedIntervenants && selectedIntervenants.length === 1 && (
-                <Button icon="pi pi-pencil" onClick={() => { setEditIntervenant(selectedIntervenants[0]); setEditVisible(true); }} severity="warning" aria-label="Notification" />
+                <Button className='btn2' icon="pi pi-pencil" onClick={() => { setEditIntervenant(selectedIntervenants[0]); setEditVisible(true); }} severity="warning" aria-label="Notification" />
               )}
             </div>
             <IconField iconPosition="left">
-                <InputIcon className="pi pi-search" />
-                <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Recherche" />
+                <InputText className='search' value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Recherche" />
             </IconField>
             </div>
         </div>
@@ -167,22 +166,22 @@ export default function Formateur() {
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
     const getIntervenants = () => {
-        axiosClient.get('/intervenant').then((a) => {
-            setIntervenant(a.data)
+        axiosclient.get('/intervenant').then((a) => {
+            setIntervenants(a.data)
             console.log(a.data)
             setLoading(false)
         })
     }
 
     const getEtablissements = () => {
-        axiosClient.get('/etablissement').then((a) => {
+        axiosclient.get('/etablissement').then((a) => {
             setEtablissement(a.data)
             console.log(a.data)
         })
     }
 
     useEffect(() => {
-        axiosClient.get('/sanctum/csrf-cookie')
+        axiosclient.get('/sanctum/csrf-cookie')
         getIntervenants()
         getEtablissements() 
     }, []);
@@ -192,38 +191,38 @@ export default function Formateur() {
     return (
         <>
             <div className="card flex justify-content-center">
-                <Button label="Ajouter un intervenant" icon="pi pi-plus" onClick={() => setVisible(true)}/>
+                <Button className='btn' label="Ajouter un intervenant" icon="pi pi-plus" onClick={() => setVisible(true)}/>
                 <Dialog header="Ajout d'un intervenant" visible={visible} style={{width: '50vw'}} onHide={() => setVisible(false)}>
-                    <CreateFormateur intervenant={intervenant} handleChange={handleChange} etablissement={etablissement} handleSubmit={handleSubmit} diplomes={diplomes}/>
+                    <CreateIntervenant intervenant={intervenant} handleChange={handleChange} etablissement={etablissement} handleSubmit={handleSubmit} diplomes={diplomes}/>
                 </Dialog>
                 <Dialog header="Modifier un formateur" visible={editVisible} style={{width: '50vw'}} onHide={() => setEditVisible(false)}>
-                    <EditFormateur setFormateur={setEditIntervenant} intervenant={editIntervenant} etablissement={etablissement} handleChange={(e) => handleChange(e, true)} handleEdit={handleEdit} diplomes={diplomes} />
+                    <EditIntervenant setIntervenant={setEditIntervenant} intervenant={editIntervenant} etablissement={etablissement} handleChange={(e) => handleChange(e, true)} handleEdit={handleEdit} diplomes={diplomes} />
                 </Dialog>
                 <div className="container">
                   <DataTable 
-                  value={intervenant}  
-                  paginator rows={10} 
-                  dataKey="matricule" 
-                  scrollable scrollHeight="64vh" 
-                  sortMode="multiple" 
-                  tableStyle={{ minWidth: '50rem' }} 
-                  className='formateursTable'
-                  emptyMessage="Pas de formateurs trouvées."
-                  header={header}
-                  loading={loading}
-                  globalFilter={globalFilterValue}
-                  globalFilterFields={['nom', 'dateNaissance', 'matricule', 'type_intervenant', 'etablissement_id', 'Echelle', 'Echelon', 'Date_Recrutement', 'dateNaissance', 'Date_Depart_Retrait', 'Grade', 'Diplome', 'Filiere', 'Categorie', 'situationFamiliale', 'MasseHoaraireHeb', 'idEtablissement']}
-                  selectionMode="multiple"
-                  selection={selectedIntervenants} 
-                  onSelectionChange={(e) => setSelectedIntervenants(e.value)}
-                  >
-                      <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
-                      <Column sortable style={{ minWidth: '15rem' }} field="matricule" header="Matricule"></Column>
-                      <Column sortable style={{ minWidth: '15rem' }} field="nom" header="Nom"></Column>
-                      <Column sortable style={{ minWidth: '15rem' }} field="dateNaissance" header="Date Naissance"></Column>
-                      <Column sortable style={{ minWidth: '15rem' }} field="type_intervenant" header="Type Intervenant"></Column>
-                      <Column sortable style={{ minWidth: '15rem' }} field="etablissement_id" header="Etablissement"></Column>
-                  </DataTable>
+                    value={intervenants}  
+                    paginator rows={10} 
+                    dataKey="id" 
+                    scrollable scrollHeight="64vh" 
+                    sortMode="multiple" 
+                    tableStyle={{ minWidth: '50rem' }} 
+                    className='formateursTable'
+                    emptyMessage="Pas de formateurs trouvées."
+                    header={header}
+                    loading={loading}
+                    globalFilter={globalFilterValue}
+                    globalFilterFields={['nom', 'datenaissance', 'matricule', 'typeintervenant', 'etablissement_id']}
+                    selectionMode="multiple"
+                    selection={selectedIntervenants} 
+                    onSelectionChange={e => setSelectedIntervenants(e.value)}
+                >
+                    <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
+                    <Column sortable style={{ minWidth: '15rem' }} field="matricule" header="Matricule"></Column>
+                    <Column sortable style={{ minWidth: '15rem' }} field="nom" header="Nom"></Column>
+                    <Column sortable style={{ minWidth: '15rem' }} field="datenaissance" header="Date Naissance"></Column>
+                    <Column sortable style={{ minWidth: '15rem' }} field="typeintervenant" header="Type Intervenant"></Column>
+                    <Column sortable style={{ minWidth: '15rem' }} field="etablissements_id" header="Etablissement"></Column>
+                </DataTable>
                 </div>
                 <Toast ref={toast}/>
                 <ConfirmDialog acceptLabel="Oui" rejectLabel="Non" />

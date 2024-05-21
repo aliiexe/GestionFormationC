@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('diplomes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('intervenants_id');
+            $table->unsignedBigInteger('intervenants_id');
             $table->foreign('intervenants_id')->references('id')->on('intervenants')->onDelete('cascade');
             $table->unsignedBigInteger('domaines_id')->nullable();
             $table->foreign('domaines_id')->references('id')->on('domaines')->onDelete('cascade');

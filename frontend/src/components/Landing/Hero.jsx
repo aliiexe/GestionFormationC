@@ -20,7 +20,7 @@ export default function Hero() {
               <span className="sr-only">Votre entreprise</span>
               <img
                 className="h-8 w-auto"
-                src="images/ofppt.png"
+                src="images/ofppt-logo.png"
                 alt=""
               />
             </a>

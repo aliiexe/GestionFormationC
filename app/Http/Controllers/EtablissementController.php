@@ -12,7 +12,7 @@ class EtablissementController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Etablissement::all());
     }
 
     /**

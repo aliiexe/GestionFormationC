@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('etablissements', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('users_id');
+            $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('regions_id');
+            $table->unsignedBigInteger('regions_id');
             $table->foreign('regions_id')->references('id')->on('regions')->onDelete('cascade');
             $table->string('nom_efp');
             $table->string('adresse');

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('certifications', function (Blueprint $table) {
             $table->id();
-            $table->BigInteger('domaines_id');
+            $table->unsignedBigInteger('domaines_id');
             $table->foreign('domaines_id')->references('id')->on('domaines')->onDelete('cascade');
-            $table->bigInteger('intervenants_id');
+            $table->unsignedBigInteger('intervenants_id');
             $table->foreign('intervenants_id')->references('id')->on('intervenants')->onDelete('cascade');
             $table->string('intitule_certification');
             $table->string('organisme_certification');
