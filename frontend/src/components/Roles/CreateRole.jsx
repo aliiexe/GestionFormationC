@@ -1,4 +1,4 @@
-export default function CreateIntervenant({intervenant, etablissement, handleChange, handleSubmit}) {
+export default function CreateRole({handleChange, handleSubmit}) {
     return (
       <div>
           <div className="maindiv2-container">

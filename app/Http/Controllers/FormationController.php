@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\role;
+use App\Models\Formation;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class FormationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(role::all());
+        return response()->json(Formation::all());
     }
 
     /**
@@ -28,24 +28,26 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = new role();
-        $role->name = $request->name;
-        $role->guard_name = $request->guard_name;
-        $role->save();
+        $formation = new Formation();
+        $formation->intitule_theme = $request->intitule_theme;
+        $formation->duree_formation = $request->duree_formation;
+        $formation->status = $request->status;
+        $formation->domaines_id = $request->domaines_id;
+        $formation->save();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($role)
+    public function show(Formation $formation)
     {
-        return response()->json(role::find($role));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(role $role)
+    public function edit(Formation $formation)
     {
         //
     }
@@ -53,7 +55,7 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, role $role)
+    public function update(Request $request, Formation $formation)
     {
         //
     }
@@ -61,7 +63,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(role $role)
+    public function destroy(Formation $formation)
     {
         //
     }

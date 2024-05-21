@@ -16,3 +16,4 @@ require __DIR__.'/auth.php';
 Route::resource('intervenant',IntervenantController::class);
 Route::resource('etablissement',EtablissementController::class);
 Route::resource('role',RoleController::class);
+Route::resource('formation',RoleController::class);
