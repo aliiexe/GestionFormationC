@@ -1,15 +1,22 @@
 import  {Outlet} from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { axiosclient } from '../api/axiosClient'
 
 const navigation = [
   { name: 'Espace entreprise', href: '#' },
   { name: 'Espace office', href: '#' }
 ]
-export default function GuestLayout(){
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+export default function GuestLayout(){
+  const [user,setuser]=useState(null)
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+useEffect(()=>{
+  axiosclient.get('/api/user').then((a)=>{
+setuser(a.data)
+  })
+},[])
     return(
         <>
         <header className="absolute inset-x-0 top-0 z-50">
@@ -42,9 +49,10 @@ export default function GuestLayout(){
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-              Se connecter <span aria-hidden="true">&rarr;</span>
-            </a>
+            {!user?<a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          Se connecter <span aria-hidden="true">&rarr;</span>
+            </a>:<a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          {user.name} <span aria-hidden="true">&rarr;</span></a>}
           </div>
         </nav>
         <Dialog className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>

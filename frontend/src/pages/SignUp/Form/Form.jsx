@@ -6,6 +6,7 @@ import { errorSignProps, errorParagraphProps } from '../animations/animationProp
 import './Form.css';
 import { useState } from 'react';
 import { axiosclient } from '../../../api/axiosClient.jsx';
+import { useNavigate } from 'react-router';
 
 const formFields = [
   {
@@ -51,10 +52,14 @@ const Form = ({ setIsOpen, setName, setOpenToS }) => {
     password: "",
     password_confirmation: ""
   });
-
+const navigate=useNavigate()
 const onSubmit = (data) => {
   axiosclient.get('sanctum/csrf-cookie').then(()=>{
 axiosclient.post('/register',data).then((a)=>{
+  if(a.status==200 || a.status==204){
+    window.localStorage.setItem('token','true')
+    navigate('/')
+  }
   console.log(a)
   axiosclient.get('/api/user').then(a=>{
     console.log(a.data)
@@ -62,13 +67,7 @@ axiosclient.post('/register',data).then((a)=>{
 })})
 console.log(data)
     setUser(data);
-    reset({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      password_confirmation: ""
-    });
+   
   };
 
   return (
