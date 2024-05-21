@@ -94,6 +94,7 @@ console.log(data)
       ))}
       <input type="submit" value="Se connecter" />
       <div style={{"textAlign":"center","textDecoration":"underline"}}><Link to={"/register"}>Create account</Link></div>
+      <div style={{"textAlign":"center","textDecoration":"underline"}}><Link to={"/recuperation"}>mot de passe oublié?</Link></div>
     </form>
   );
 };

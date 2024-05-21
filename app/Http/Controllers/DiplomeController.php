@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Diplome;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DiplomeController extends Controller
@@ -13,6 +14,10 @@ class DiplomeController extends Controller
     public function index()
     {
         //
+    }
+    public function users()
+    {
+        return response()->json(User::all());
     }
 
     /**
