@@ -27,7 +27,7 @@ const SignUp = () => {
             navigate('/')
         }else{
             return
-        }
+        }   
     }, [])
 
     return (
@@ -37,13 +37,13 @@ const SignUp = () => {
                 <h1 >
                     <span>Formation &nbsp;
                         <span  >
-                        <span className="word" style={{color: "#87b3fe"}}>continue</span>
+                        <span className="word" style={{color: "#008B45"}}>continue</span>
                         <span className="word">excitant</span></span>
                     </span>
                     <span>pour vous enrichir</span>
                 </h1>
                 <p>
-             L'office de formation proffesionel de la promoion de travail propose une variéte de programmes de formation continue   
+                    L'office de formation proffesionel de la promoion de travail propose une variéte de programmes de formation continue   
                 </p>
             </div>
             <div className="sign-up-right sign-up-column">
