@@ -34,9 +34,9 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(role $role)
+    public function show($role)
     {
-        //
+        return response()->json(role::find($role));
     }
 
     /**

@@ -15,7 +15,8 @@ export const router=createBrowserRouter([
     ,
     {Component:AdminLayout,children:[
         {path:"/",Component:Landing}
-        ,{path:'/intervenants',Component:GestionIntervenants}
+        ,{path:'/intervenants',Component:GestionIntervenants},
+        {path:'/formation',}
     ]}
 
 ])

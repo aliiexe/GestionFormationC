@@ -51,11 +51,14 @@ axiosclient.post('/login',data).then((a)=>{
   console.log(a)
   if(a.status==200 || a.status==204){
     window.localStorage.setItem('token','true')
-    navigate('/')
+   
   }
   axiosclient.get('/api/user').then(a=>{
-  
-    console.log(a.data)
+  if(a.roles_id=1){
+    navigate('/intervenants')
+  }else{
+    navigate('/')
+  }
   })
 })})
 console.log(data)

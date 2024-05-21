@@ -13,7 +13,7 @@ const SignUp = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [openToS, setOpenToS] = useState(false)
     const [name,setName] = useState("")
-
+    
     useEffect(()=> {
       
 

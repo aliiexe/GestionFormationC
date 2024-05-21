@@ -64,6 +64,7 @@ axiosclient.post('/register',data).then((a)=>{
   console.log(a)
   axiosclient.get('/api/user').then(a=>{
     console.log(a.data)
+  
   })
 })})
 console.log(data)
