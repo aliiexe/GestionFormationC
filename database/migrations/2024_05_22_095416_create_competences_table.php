@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('competences', function (Blueprint $table) {
             $table->id();
             $table->string('libelle');
-            $table->unsignedBigInteger('intervenants_id');
-            $table->foreign('intervenants_id')->references('id')->on('intervenants')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class Intervenant extends Model
         'matricule',
         'nom',
         'dateNaissance',
-        'type_intervenant',
+        'typeintervenant',
         'etablissement_id',
         'user_id',
     ];
@@ -25,7 +25,7 @@ class Intervenant extends Model
     {
         return $this->hasMany(Competence::class);
     }
-    public function etablissements(){
+    public function etablissement(){
         return $this->belongsTo(Etablissement::class,'etablissements_id');
     }
 }

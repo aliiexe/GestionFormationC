@@ -14,7 +14,7 @@ class IntervenantController extends Controller
      */
     public function index()
     {
-        return response()->json(Intervenant::with('etablissements')->get());
+        return response()->json(Intervenant::with('etablissement')->get());
     }
 
     /**
@@ -35,7 +35,7 @@ class IntervenantController extends Controller
             'name' => $request->nom,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'roles_id'=>3
+            'roles_id'=>1
         ]);
         $intevenant->nom = $request->nom;
         $intevenant->matricule = $request->matricule;

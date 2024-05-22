@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Competence extends Model
+class AffectationIC extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'libelle',
+        'intervenant_id',
+        'competence_id',
     ];
 }

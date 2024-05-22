@@ -43,7 +43,7 @@ setIsModalOpen2(true)
 
       }
   const getintervenants=async()=>{
-    await axiosclient.get('/intervenant').then((a)=>{setintervenants(a.data);console.log(a.data)})
+    await axiosclient.get('/intervenant').then((a)=>{setintervenants(a.data); console.log(a.data)})
   }
   const confirmupdate=async()=>{
     await axiosclient.put('/intervenant/'+update.id).then((a)=>{})
@@ -175,7 +175,6 @@ return(
           maxWidth: 600,
         }}
       >
-
           <h3 style={{fontSize:"20px","marginLeft":"13px",maxWidth:300,borderBottom:"2px solid purple",marginBottom:"40px"}}>{update?"UPDATE":"ADD"} intervenant</h3>
           <Form.Item label="matricule" name={"matricule"} rules={[{required:true,message:"please fill needed field"}]}>
           <Input   required={true} name="matricule" onChange={(e)=>handleChange(e)}/>
@@ -195,21 +194,16 @@ return(
         <Form.Item label="etablissement">
           <Select name={'etablisssement'} onSelect={(e)=>handleChange(e,true,"etablissement")}>
           {etablissement.map((e)=>{return(
-              <Select.Option name="etablissement" value={e.id} >{e.nom_efp}</Select.Option>
+              <Select.Option name="etablissement" value={e.id} key={e.id} >{e.nom_efp}</Select.Option>
           )})}
-          <Select.Option name="" value="nn" >bbb</Select.Option>
           </Select>
-        </Form.Item>
-
-
-   
+        </Form.Item>   
         <Form.Item label="type intervenant">
           <Select name={'type'} onSelect={(e)=>handleChange(e,true,"type")}>
           <Select.Option name="typeintervenant" value="interne" >interne</Select.Option>
-          <Select.Option name="typeintervenant" value="interne" >externe</Select.Option>
+          <Select.Option name="typeintervenant" value="externe" >externe</Select.Option>
           </Select>
         </Form.Item>
-    
         <Form.Item label="intitule diplome"  rules={[{required:true,message:"please fill needed field"}]}>
           <Input name={"intitule_diplome"}  required={true} onChange={(e)=>handleChange(e)}/>
         </Form.Item>
@@ -222,9 +216,7 @@ return(
         <Form.Item >
           <Button onClick={()=>{createintervenant()}}>Confirm</Button>
         </Form.Item>
-
       </Form>
-
     </>
 )
 }
