@@ -17,4 +17,12 @@ class Intervenant extends Model
         'etablissement_id',
         'user_id',
     ];
+    public function certficats()
+    {
+        return $this->hasMany(Certification::class);
+    }
+    public function competences()
+    {
+        return $this->hasMany(Competence::class);
+    }
 }

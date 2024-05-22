@@ -5,6 +5,10 @@ use App\Http\Controllers\EtablissementController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\IntervenantController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\DomaineController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,3 +22,7 @@ Route::resource('intervenant',IntervenantController::class);
 Route::resource('etablissement',EtablissementController::class);
 Route::resource('role',RoleController::class);
 Route::resource('formation',FormationController::class);
+Route::resource('certifications',CertificationController::class);
+Route::resource('certifications',CertificationController::class);
+Route::resource('competences',CompetenceController::class);
+Route::resource('domaines',DomaineController::class);
