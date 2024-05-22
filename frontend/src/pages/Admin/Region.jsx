@@ -1,41 +1,71 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Input, Table, Space, Modal } from "antd";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Table, Space, Modal, Form, Input, Button, Select } from "antd";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { axiosclient } from "../../api/axiosClient";
 
-export default function Region() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [region, setRegion] = useState({});
+const { Option } = Select;
+
+const Region = () => {
   const [regions, setRegions] = useState([]);
-  const [updateRegion, setUpdateRegion] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
+  const [selectedRegion, setSelectedRegion] = useState(null);
 
-  const deleteRegion = async (id) => {
-    await axiosclient.delete("/regions/" + id).then(() => {
-      fetchRegions();
-      setIsModalOpen(true);
-    });
-  };
-
-  const startUpdateRegion = (record) => {
-    setUpdateRegion(record);
-    setRegion(record);
-    form.setFieldsValue(record);
-  };
+  useEffect(() => {
+    fetchRegions();
+  }, []);
 
   const fetchRegions = async () => {
-    await axiosclient.get("/regions").then((response) => {
+    try {
+      const response = await axiosclient.get("/regions");
       setRegions(response.data);
-    });
+    } catch (error) {
+      console.error("Erreur lors de la récupération des régions :", error);
+    }
   };
 
-  const confirmUpdate = async () => {
-    await axiosclient.put("/regions/" + updateRegion.id, region).then(() => {
+  const showModal = () => {
+    setIsModalVisible(true);
+    setSelectedRegion(null);
+    form.resetFields();
+  };
+
+  const showEditModal = (region) => {
+    setIsModalVisible(true);
+    setSelectedRegion(region);
+    form.setFieldsValue(region);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setSelectedRegion(null);
+    form.resetFields();
+  };
+
+  const handleOk = async () => {
+    try {
+      const values = await form.validateFields();
+      if (selectedRegion) {
+        await axiosclient.put(`/regions/${selectedRegion.id}`, values);
+      } else {
+        await axiosclient.post("/regions", values);
+      }
       fetchRegions();
-      setUpdateRegion(null);
-      setRegion({});
+      setIsModalVisible(false);
+      setSelectedRegion(null);
       form.resetFields();
-    });
+    } catch (error) {
+      console.error("Erreur lors de l'ajout ou de la modification de la région :", error);
+    }
+  };
+
+  const deleteRegion = async (id) => {
+    try {
+      await axiosclient.delete(`/regions/${id}`);
+      fetchRegions();
+    } catch (error) {
+      console.error("Erreur lors de la suppression de la région :", error);
+    }
   };
 
   const columns = [
@@ -49,69 +79,47 @@ export default function Region() {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <EditOutlined onClick={() => startUpdateRegion(record)} />
-          <DeleteOutlined onClick={() => deleteRegion(record.id)} />
+          <a onClick={() => showEditModal(record)}>
+            <EditOutlined />
+          </a>
+          <a onClick={() => deleteRegion(record.id)}>
+            <DeleteOutlined />
+          </a>
         </Space>
       ),
     },
   ];
 
-  const handleChange = (e) => {
-    setRegion({ ...region, [e.target.name]: e.target.value });
-  };
-
-  useEffect(() => {
-    fetchRegions();
-  }, []);
-
-  const createRegion = async () => {
-    await axiosclient.post("/regions", region).then(() => {
-      fetchRegions();
-      setRegion({});
-      form.resetFields();
-    });
-  };
-
   return (
-    <>
+    <div>
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={showModal}
+        style={{ marginBottom: "1rem" }}
+      >
+        Ajouter Région
+      </Button>
+      <Table columns={columns} dataSource={regions} />
+
       <Modal
-        open={isModalOpen}
-        title="Notification"
-        onOk={() => setIsModalOpen(false)}
-        onCancel={() => setIsModalOpen(false)}
-        footer={[
-          <Button key="ok" type="primary" onClick={() => setIsModalOpen(false)}>
-            Ok
-          </Button>,
-        ]}
+        title={selectedRegion ? "Modifier Région" : "Ajouter Région"}
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
       >
-        <p>Region has been deleted</p>
+        <Form form={form} layout="vertical">
+          <Form.Item
+            name="nom_region"
+            label="Nom"
+            rules={[{ required: true, message: "Veuillez saisir le nom de la région" }]}
+          >
+            <Input />
+          </Form.Item>
+        </Form>
       </Modal>
-
-      <Form.Item>
-        <h3 style={{ fontSize: "20px", marginLeft: "13px", borderBottom: "2px solid purple", maxWidth: 300 }}>Regions</h3>
-      </Form.Item>
-      <Table columns={columns} dataSource={regions} pagination={{ defaultPageSize: 6 }} rowKey="id" />
-
-      <Form
-        form={form}
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
-        layout="horizontal"
-        style={{ maxWidth: 600 }}
-      >
-        <h3 style={{ fontSize: "20px", marginLeft: "13px", maxWidth: 300, borderBottom: "2px solid purple", marginBottom: "40px" }}>
-          {updateRegion ? "Update" : "Add"} Region
-        </h3>
-        <Form.Item label="Nom" name="nom_region" rules={[{ required: true, message: "Please fill the required field" }]}>
-          <Input name="nom_region" value={region.nom_region || ''} onChange={handleChange} />
-        </Form.Item>
-        <Form.Item>
-          <Button onClick={updateRegion ? confirmUpdate : createRegion}>
-            {updateRegion ? "Update" : "Create"}
-          </Button>
-        </Form.Item>
-      </Form>
-      </>
+    </div>
   );
-}
+};
+
+export default Region;

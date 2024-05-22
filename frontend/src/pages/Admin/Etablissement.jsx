@@ -1,55 +1,86 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Input, Table, Space, Modal, Select } from "antd";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Table, Space, Modal, Form, Input, Button, Select } from "antd";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { axiosclient } from "../../api/axiosClient";
 
 const { Option } = Select;
 
-export default function Etablissement() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [etablissement, setEtablissement] = useState({});
+const Etablissement = () => {
   const [etablissements, setEtablissements] = useState([]);
-  const [updateEtablissement, setUpdateEtablissement] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [regions, setRegions] = useState([]);
+  const [selectedEtablissement, setSelectedEtablissement] = useState(null);
 
-  const deleteEtablissement = async (id) => {
-    await axiosclient.delete("/etablissements/" + id).then(() => {
-      fetchEtablissements();
-      setIsModalOpen(true);
-    });
-  };
-
-  const startUpdateEtablissement = (record) => {
-    setUpdateEtablissement(record);
-    setEtablissement(record);
-    form.setFieldsValue(record);
-  };
+  useEffect(() => {
+    fetchEtablissements();
+    fetchRegions();
+  }, []);
 
   const fetchEtablissements = async () => {
-    await axiosclient.get("/etablissements").then((response) => {
+    try {
+      const response = await axiosclient.get("/etablissement");
       setEtablissements(response.data);
-    });
+    } catch (error) {
+      console.error("Erreur lors de la récupération des établissements :", error);
+    }
   };
 
   const fetchRegions = async () => {
-    await axiosclient.get("/regions").then((response) => {
+    try {
+      const response = await axiosclient.get("/regions");
       setRegions(response.data);
-    });
+    } catch (error) {
+      console.error("Erreur lors de la récupération des régions :", error);
+    }
   };
 
-  const confirmUpdate = async () => {
-    await axiosclient
-      .put("/etablissements/" + updateEtablissement.id, etablissement)
-      .then(() => {
-        fetchEtablissements();
-        setUpdateEtablissement(null);
-        setEtablissement({});
-        form.resetFields();
-      });
+  const showModal = () => {
+    setIsModalVisible(true);
+    setSelectedEtablissement(null); // Réinitialiser les données de l'établissement sélectionné
+    form.resetFields(); // Réinitialiser les champs du formulaire
   };
 
+  const showEditModal = (etablissement) => {
+    setIsModalVisible(true);
+    setSelectedEtablissement(etablissement); // Définir les données de l'établissement sélectionné
+    form.setFieldsValue(etablissement); // Mettre à jour les champs du formulaire avec les données de l'établissement sélectionné
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setSelectedEtablissement(null); // Réinitialiser les données de l'établissement sélectionné
+    form.resetFields(); // Réinitialiser les champs du formulaire
+  };
+
+  const handleOk = async () => {
+    try {
+      const values = await form.validateFields();
+      if (selectedEtablissement) {
+        // Si un établissement est sélectionné, effectuez une mise à jour
+        await axiosclient.put(`/etablissement/${selectedEtablissement.id}`, values);
+      } else {
+        // Sinon, effectuez une création
+        await axiosclient.post("/etablissement", values);
+      }
+      fetchEtablissements();
+      setIsModalVisible(false);
+      setSelectedEtablissement(null); // Réinitialiser les données de l'établissement sélectionné
+      form.resetFields(); // Réinitialiser les champs du formulaire
+    } catch (error) {
+      console.error("Erreur lors de l'ajout ou de la modification de l'établissement :", error);
+    }
+  };
+  const deleteEtablissement = async (id) => {
+    try {
+      await axiosclient.delete(`/etablissement/${id}`);
+      fetchEtablissements();
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'établissement :", error);
+    }
+  };
   const columns = [
+    // Configuration des colonnes du tableau
     {
       title: "Nom",
       dataIndex: "nom_efp",
@@ -71,101 +102,90 @@ export default function Etablissement() {
       key: "ville",
     },
     {
-        title: "Région",
-        dataIndex: "region",
-        key: "region",
-        render: (region) => region ? region.nom_region : ""
-      },
+      title: "Région",
+      dataIndex: "region",
+      key: "region",
+      render: (region) => (region ? region.nom_region : ""),
+    },
     {
       title: "Action",
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <EditOutlined onClick={() => startUpdateEtablissement(record)} />
-          <DeleteOutlined onClick={() => deleteEtablissement(record.id)} />
+          <a onClick={() => showEditModal(record)}>
+            <EditOutlined />
+          </a>
+          <a onClick={() => deleteEtablissement(record.id)}>
+          <DeleteOutlined />
+        </a>
         </Space>
       ),
     },
   ];
 
-  const handleChange = (e) => {
-    setEtablissement({ ...etablissement, [e.target.name]: e.target.value });
-  };
-
-  useEffect(() => {
-    fetchEtablissements();
-    fetchRegions();
-  }, []);
-
-  const createEtablissement = async () => {
-    await axiosclient.post("/etablissements", etablissement).then(() => {
-      fetchEtablissements();
-      setEtablissement({});
-      form.resetFields();
-    });
-  };
-
   return (
-    <>
+    <div>
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={showModal}
+        style={{ marginBottom: "1rem" }}
+      >
+        Ajouter Etablissement
+      </Button>
+      <Table columns={columns} dataSource={etablissements} />
       <Modal
-        open={isModalOpen}
-        title="Notification"
-        onOk={() => setIsModalOpen(false)}
-        onCancel={() => setIsModalOpen(false)}
-        footer={[
-          <Button key="ok" type="primary" onClick={() => setIsModalOpen(false)}>
-            Ok
-          </Button>,
-        ]}
+        title={selectedEtablissement ? "Modifier Etablissement" : "Ajouter Etablissement"}
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
       >
-        <p>Etablissement has been deleted</p>
-      </Modal>
-
-      <Form.Item>
-        <h3 style={{ fontSize: "20px", marginLeft: "13px", borderBottom: "2px solid purple", maxWidth: 300 }}>Etablissements</h3>
-      </Form.Item>
-      <Table columns={columns} dataSource={etablissements} pagination={{ defaultPageSize: 6 }} rowKey="id" />
-
-      <Form
-        form={form}
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
-        layout="horizontal"
-        style={{ maxWidth: 600 }}
-      >
-        <h3 style={{ fontSize: "20px", marginLeft: "13px", maxWidth: 300, borderBottom: "2px solid purple", marginBottom: "40px" }}>
-          {updateEtablissement ? "Update" : "Add"} Etablissement
-        </h3>
-        <Form.Item label="Nom" name="nom_efp" rules={[{ required: true, message: "Please fill the required field" }]}>
-          <Input name="nom_efp" value={etablissement.nom_efp || ''} onChange={handleChange} />
-        </Form.Item>
-        <Form.Item label="Adresse" name="adresse" rules={[{ required: true, message: "Please fill the required field" }]}>
-          <Input name="adresse" value={etablissement.adresse || ''} onChange={handleChange} />
-        </Form.Item>
-        <Form.Item label="Téléphone" name="telephone" rules={[{ required: true, message: "Please fill the required field" }]}>
-          <Input name="telephone" value={etablissement.telephone || ''} onChange={handleChange} />
-        </Form.Item>
-        <Form.Item label="Ville" name="ville" rules={[{ required: true, message: "Please fill the required field" }]}>
-          <Input name="ville" value={etablissement.ville || ''} onChange={handleChange} />
-        </Form.Item>
-        <Form.Item label="Région" name="regions_id" rules={[{ required: true, message: "Please select a region" }]}>
-          <Select
-            placeholder="Select a region"
-            value={etablissement.regions_id || undefined}
-            onChange={(value) => setEtablissement({ ...etablissement, regions_id: value })}
+        <Form form={form} layout="vertical">
+          <Form.Item             name="nom_efp"
+            label="Nom"
+            rules={[{ required: true, message: "Veuillez saisir le nom" }]}
           >
-            {regions.map(region => (
-              <Option key={region.id} value={region.id}>{region.nom_region}</Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item>
-          <Button onClick={updateEtablissement ? confirmUpdate : createEtablissement}>
-            {updateEtablissement ? "Update" : "Create"}
-          </Button>
-        </Form.Item>
-      </Form>
-    </>
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="adresse"
+            label="Adresse"
+            rules={[{ required: true, message: "Veuillez saisir l'adresse" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="telephone"
+            label="Téléphone"
+            rules={[{ required: true, message: "Veuillez saisir le téléphone" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="ville"
+            label="Ville"
+            rules={[{ required: true, message: "Veuillez saisir la ville" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="regions_id"
+            label="Région"
+            rules={[{ required: true, message: "Veuillez sélectionner une région" }]}
+          >
+            <Select>
+              {regions.map(region => (
+                <Option key={region.id} value={region.id}>
+                  {region.nom_region}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
   );
-}
+};
+
+export default Etablissement;
 
