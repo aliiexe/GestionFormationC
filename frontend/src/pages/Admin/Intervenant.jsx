@@ -53,9 +53,7 @@ setIsModalOpen2(true)
 
 
   }
-const useEffect(() => {
- axiosclient
-},[])
+
    const columns = [
     {
       title: 'Name',
@@ -96,24 +94,51 @@ const onChange=((e)=>{
   const[error,seterror]=useState()
 
   const createintervenant=()=>{
- 
+ console.log(intervenant)
 seterror('all fields are required')
 
    
       seterror()
-axiosclient.post('/intervenant',{})
-.then()
+axiosclient.post('/intervenant',intervenant)
+.then(e=>console.log(e))
   }
-  const handleChange=(e,isselect)=>{
+  const handleChange=(e,isselect,type)=>{
     if(isselect==true){
-      setintervenant({...intervenant,"datenaissance":e})
-      console.log(intervenant)
+      if(type=="type"){
+        setintervenant({...intervenant,"typeintervenant":e})
+        console.log(intervenant)
+      }else if(type=="etablissement"){
+        setintervenant({...intervenant,"etablissement_id":e})
+        console.log(intervenant)
+      }
+  
     }else{
     setintervenant({...intervenant,[e.target.name]:e.target.value})
     console.log(e.target.name,"   ",e.target.value)
     console.log(intervenant)}
   }
-  
+  const[etablissement,setetablissement]=useState([])
+  useEffect(()=>{
+axiosclient.get('/etablissement').then((a)=>{
+setetablissement(a.data)
+})
+  },[])
+  const diplomes = [
+    { name: "" },
+    { name: "Baccalauréat Général" },
+    { name: "Baccalauréat Technique" },
+    { name: "Baccalauréat Professionnel" },
+    { name: "Diplôme de Technicien (DT)" },
+    { name: "Diplôme de Technicien Spécialisé (DTS)" },
+    { name: "Diplôme Universitaire de Technologie (DUT)" },
+    { name: "Brevet de Technicien Supérieur (BTS)" },
+    { name: "Diplôme d'Études Universitaires Générales (DEUG)" },
+    { name: "Diplôme de Licence (Licence Fondamentale)" },
+    { name: "Licence Professionnelle" },
+    { name: "Master" },
+    { name: "Master Spécialisé" },
+    { name: "Diplôme d'Ingénieur d'État" },
+];
 return(
     <>
      <>
@@ -155,27 +180,45 @@ return(
           <Form.Item label="matricule" name={"matricule"} rules={[{required:true,message:"please fill needed field"}]}>
           <Input   required={true} name="matricule" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
+        <Form.Item label="email" name={"email"} rules={[{required:true,message:"please fill needed field"}]}>
+          <Input   required={true} name="email" onChange={(e)=>handleChange(e)}/>
+        </Form.Item>
+        <Form.Item label="password" name={"password"} rules={[{required:true,message:"please fill needed field"}]}>
+          <Input   required={true} name="password" onChange={(e)=>handleChange(e)}/>
+        </Form.Item>
           <Form.Item label="nom" name={"nom"} rules={[{required:true,message:"please fill needed field"}]}>
           <Input   required={true} name="nom" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
         <Form.Item label="date naissance"  rules={[{required:true,message:"please fill needed field"}]}>
-          <Input name={"datenaissance"}  required={true} onChange={(e)=>handleChange(e)}/>
+          <Input name={"datenaissance"} type="date" required={true} onChange={(e)=>handleChange(e)}/>
         </Form.Item>
-        <Form.Item label="DISPLOME" >
-          <Select name={'date_naissance'} onSelect={(e)=>handleChange(e,true)}>
-          <Select.Option name="date_naissance" value="aaa" >AAAA</Select.Option>
-          <Select.Option name="date_naissance" value="nn" >bbb</Select.Option>
+        <Form.Item label="etablissement">
+          <Select name={'etablisssement'} onSelect={(e)=>handleChange(e,true,"etablissement")}>
+          {etablissement.map((e)=>{return(
+              <Select.Option name="etablissement" value={e.id} >{e.nom_efp}</Select.Option>
+          )})}
+          <Select.Option name="" value="nn" >bbb</Select.Option>
           </Select>
         </Form.Item>
       
 
-        <Form.Item label="type_intervenant"  rules={[{required:true,message:"please fill needed field"}]}>
-          <Input  name={"type_intervenant"} required={true} onChange={(e)=>handleChange(e)}/>
+   
+        <Form.Item label="type intervenant">
+          <Select name={'type'} onSelect={(e)=>handleChange(e,true,"type")}>
+          <Select.Option name="typeintervenant" value="interne" >interne</Select.Option>
+          <Select.Option name="typeintervenant" value="interne" >externe</Select.Option>
+          </Select>
         </Form.Item>
-        {error?<Form.Item > <div style={{color:"red"}}>{error}</div>
-        </Form.Item>:null}
-
-      
+    
+        <Form.Item label="intitule diplome"  rules={[{required:true,message:"please fill needed field"}]}>
+          <Input name={"intitule_diplome"}  required={true} onChange={(e)=>handleChange(e)}/>
+        </Form.Item>
+        <Form.Item label="type diplome"  rules={[{required:true,message:"please fill needed field"}]}>
+          <Input name={"typediplome"}  required={true} onChange={(e)=>handleChange(e)}/>
+        </Form.Item>
+        <Form.Item label="specialite diplome"  rules={[{required:true,message:"please fill needed field"}]}>
+          <Input name={"specialite_diplome"}  required={true} onChange={(e)=>handleChange(e)}/>
+        </Form.Item>
         <Form.Item >
           <Button onClick={()=>{createintervenant()}}>Confirm</Button>
         </Form.Item>
