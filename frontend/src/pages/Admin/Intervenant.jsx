@@ -25,7 +25,7 @@ import { axiosclient } from "../../api/axiosClient";
 
 export default function Intervenant(){
   const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [intervenant,setintervenant]=useState([])
+  const [intervenant,setintervenant]=useState({})
   const [intervenants,setintervenants]=useState([])
   const[updintervenant,setupdaintevenant]=useState()
   const[update,setupdate]=useState()
@@ -53,7 +53,9 @@ setIsModalOpen2(true)
 
 
   }
-
+const useEffect(() => {
+ axiosclient
+},[])
    const columns = [
     {
       title: 'Name',
@@ -85,25 +87,33 @@ setIsModalOpen2(true)
     return e?.fileList;
   };
 
+const onChange=((e)=>{
 
+})
   useEffect(()=>{
     getintervenants()
   },[])
   const[error,seterror]=useState()
 
   const createintervenant=()=>{
-    if(!intervenant){
+ 
 seterror('all fields are required')
 
-    }else{
+   
       seterror()
-axiosclient.post('/intervenant')
-.then((a)=>{if(a.status==200 || a.status==204){
-  setadress('')
-
-  getintervenants()
-}})
-  }}
+axiosclient.post('/intervenant',{})
+.then()
+  }
+  const handleChange=(e,isselect)=>{
+    if(isselect==true){
+      setintervenant({...intervenant,"datenaissance":e})
+      console.log(intervenant)
+    }else{
+    setintervenant({...intervenant,[e.target.name]:e.target.value})
+    console.log(e.target.name,"   ",e.target.value)
+    console.log(intervenant)}
+  }
+  
 return(
     <>
      <>
@@ -127,7 +137,7 @@ return(
 </Form.Item>
     <Table columns={columns} dataSource={intervenants}  pagination={{ defaultPageSize: 6}}/>
     <Form
-     fields={[{name:"name",value:"aa"}]}
+
         labelCol={{
           span: 4,
         }}
@@ -142,20 +152,32 @@ return(
       >
     
           <h3 style={{fontSize:"20px","marginLeft":"13px",maxWidth:300,borderBottom:"2px solid purple",marginBottom:"40px"}}>{update?"UPDATE":"ADD"} intervenant</h3>
- 
-          <Form.Item label="Name" name={"name"} rules={[{required:true,message:"please fill needed field"}]}>
-          <Input   required={true}/>
+          <Form.Item label="matricule" name={"matricule"} rules={[{required:true,message:"please fill needed field"}]}>
+          <Input   required={true} name="matricule" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
-     
-        <Form.Item label="Adress" name={"adress"}  rules={[{required:true,message:"please fill needed field"}]} onChange={(e)=>{setadress(e.target.value)}}>
-          <TextArea rows={4}  required={true}/>
-        </Form.Item> 
+          <Form.Item label="nom" name={"nom"} rules={[{required:true,message:"please fill needed field"}]}>
+          <Input   required={true} name="nom" onChange={(e)=>handleChange(e)}/>
+        </Form.Item>
+        <Form.Item label="date naissance"  rules={[{required:true,message:"please fill needed field"}]}>
+          <Input name={"datenaissance"}  required={true} onChange={(e)=>handleChange(e)}/>
+        </Form.Item>
+        <Form.Item label="DISPLOME" >
+          <Select name={'date_naissance'} onSelect={(e)=>handleChange(e,true)}>
+          <Select.Option name="date_naissance" value="aaa" >AAAA</Select.Option>
+          <Select.Option name="date_naissance" value="nn" >bbb</Select.Option>
+          </Select>
+        </Form.Item>
+      
+
+        <Form.Item label="type_intervenant"  rules={[{required:true,message:"please fill needed field"}]}>
+          <Input  name={"type_intervenant"} required={true} onChange={(e)=>handleChange(e)}/>
+        </Form.Item>
         {error?<Form.Item > <div style={{color:"red"}}>{error}</div>
         </Form.Item>:null}
 
       
         <Form.Item >
-          <Button onClick={()=>{update?confirmupdate():createintervenant()}}>Confirm</Button>
+          <Button onClick={()=>{createintervenant()}}>Confirm</Button>
         </Form.Item>
 
       </Form>
