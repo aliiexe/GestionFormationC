@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('diplomes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('intervenants_id');
-            $table->foreign('intervenants_id')->references('id')->on('intervenants')->onDelete('cascade');
+            $table->foreign('intervenants_id')->references('id')->on('intervenants')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('domaines_id')->nullable();
-            $table->foreign('domaines_id')->references('id')->on('domaines')->onDelete('cascade');
+            $table->foreign('domaines_id')->references('id')->on('domaines')->onDelete('cascade')->onUpdate('cascade');
             $table->string('intitule_diplome');
             $table->string('typediplome');
             $table->string('specialite_diplome');

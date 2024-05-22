@@ -35,12 +35,12 @@ const Login = () => {
             <main className='sign-up-container'>
             <div  className="sign-up-left sign-up-column none">
                 <h1 >
-                    <span>Formation &nbsp;
+                    <span className='font-bold'>Formation &nbsp;
                         <span  >
-                        <span className="word" style={{color: "#008B45"}}>continue</span>
-                        <span className="word">excitant</span></span>
+                        <span className="word" style={{color: "#008B45",fontWeight: "bold"}}>continue</span>
+                        <span className="word font-bold">excitant</span></span>
                     </span>
-                    <span>pour vous enrichir</span>
+                    <span className='font-bold'>pour vous enrichir</span>
                 </h1>
                 <p>
              L'office de formation proffesionel de la promoion de travail propose une variéte de programmes de formation continue   

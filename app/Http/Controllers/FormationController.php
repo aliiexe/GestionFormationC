@@ -58,14 +58,20 @@ class FormationController extends Controller
      */
     public function update(Request $request, Theme $formation)
     {
-        //
+        $formation = Theme::find($formation);
+        $formation->intitule_theme = $request->intitule_theme;
+        $formation->duree_formation = $request->duree_formation;
+        $formation->status = $request->status;
+        $formation->domaines_id = $request->domaines_id;
+        $formation->save();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Theme $formation)
+    public function destroy($formation)
     {
-        //
+        $formation = Theme::find($formation);
+        $formation->delete();
     }
 }

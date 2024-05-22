@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('themes_id');
             $table->foreign('themes_id')->references('id')->on('themes')->onDelete('cascade');
             $table->unsignedBigInteger('etablissements_id');
-            $table->foreign('etablissements_id')->references('id')->on('etablissements')->onDelete('cascade');
+            $table->foreign('etablissements_id')->references('id')->on('etablissements')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('exercice');
             $table->integer('nbjours');
             $table->integer('nbparticipants');

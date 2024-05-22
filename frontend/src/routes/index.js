@@ -8,12 +8,15 @@ import Recuperation from '../pages/Recuperation.jsx'
 import Gestionroles from '../components/Roles/GestionRoles.jsx'
 import GestionFormations from '../Formation/GestionFormations.jsx'
 import Intervenant from '../pages/Admin/Intervenant.jsx'
+import PassReset from '../pages/PassReset/PassReset.jsx'
 
 export const router=createBrowserRouter([
     {Component:GuestLayout,children:[{path:"/",Component:Landing},
       {path:'/Register',Component:SignUp },
       {path:'/Login',Component:Login},
-    {path:'/recupere',Component:Recuperation}]}
+      {path:'/recupere',Component:Recuperation},
+      {path:'/reset',Component:PassReset}
+  ]}
     ,
     {Component:AdminLayout,children:[
         {path:"/",Component:Landing}
