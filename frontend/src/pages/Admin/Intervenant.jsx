@@ -21,7 +21,8 @@ import {
   const { RangePicker } = DatePicker;
   const { TextArea } = Input;
   import { Modal } from 'antd';
-import { axiosclient } from "../../api/axiosClient";
+  import { axiosclient } from "../../api/axiosClient";
+  import Item from "antd/es/list/Item";
 
 export default function Intervenant(){
   const [isModalOpen2, setIsModalOpen2] = useState(false);
@@ -29,33 +30,7 @@ export default function Intervenant(){
   const [intervenants,setintervenants]=useState([])
   const[updintervenant,setupdaintevenant]=useState()
   const[update,setupdate]=useState()
-  const deleteintervenant=async(id)=>{
-await axiosclient.delete('intervenants/'+id).then(()=>{
-getintervenants()
-setIsModalOpen2(true)
-}
-)
-  }
-  const updateintervenant=(id)=>{
-    setupdaintevenant(id)
-    console.log(id)
 
-
-      }
-  const getintervenants=async()=>{
-    await axiosclient.get('/intervenant').then((a)=>setintervenants(a.data))
-  }
-  const confirmupdate=async()=>{
-    await axiosclient.put('/intervenant/'+update.id).then((a)=>{})
-    getintervenants()
-    setupdate()
-    setadress('')
-
-
-  }
-const useEffect(() => {
- axiosclient
-},[])
    const columns = [
     {
       title: 'Name',
@@ -74,36 +49,31 @@ const useEffect(() => {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <a><EditOutlined onClick={()=>updateintervenant(record)}/></a>
-          <a><DeleteOutlined onClick={()=>deleteintervenant(record.id)}/></a>
+          <a><EditOutlined onClick={()=>handleUpdate(record)}/></a>
+          <a><DeleteOutlined onClick={()=>handleDelete(record.id)}/></a>
         </Space>)
-      
     },
   ];
-  const normFile = (e) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
-  };
 
-const onChange=((e)=>{
+  const diplomes = [
+    { name: "" },
+    { name: "Baccalauréat Général" },
+    { name: "Baccalauréat Technique" },
+    { name: "Baccalauréat Professionnel" },
+    { name: "Diplôme de Technicien (DT)" },
+    { name: "Diplôme de Technicien Spécialisé (DTS)" },
+    { name: "Diplôme Universitaire de Technologie (DUT)" },
+    { name: "Brevet de Technicien Supérieur (BTS)" },
+    { name: "Diplôme d'Études Universitaires Générales (DEUG)" },
+    { name: "Diplôme de Licence (Licence Fondamentale)" },
+    { name: "Licence Professionnelle" },
+    { name: "Master" },
+    { name: "Master Spécialisé" },
+    { name: "Diplôme d'Ingénieur d'État" },
+    { name: "Doctorat" },
+    { name: "Doctorat d'État" },
+  ];
 
-})
-  useEffect(()=>{
-    getintervenants()
-  },[])
-  const[error,seterror]=useState()
-
-  const createintervenant=()=>{
- 
-seterror('all fields are required')
-
-   
-      seterror()
-axiosclient.post('/intervenant',{})
-.then()
-  }
   const handleChange=(e,isselect)=>{
     if(isselect==true){
       setintervenant({...intervenant,"datenaissance":e})
@@ -112,6 +82,16 @@ axiosclient.post('/intervenant',{})
     setintervenant({...intervenant,[e.target.name]:e.target.value})
     console.log(e.target.name,"   ",e.target.value)
     console.log(intervenant)}
+  }
+
+  const handleSubmit=()=>{
+      axiosclient.post('/intervenant',intervenant).then((res)=>{
+        console.log(res)
+        setintervenant({})
+        setintervenants([...intervenants])
+      }).catch((err)=>{
+        console.log(err)
+      })
   }
   
 return(
@@ -126,8 +106,7 @@ return(
           <>
             <OkBtn />
           </>
-        )}
-      >
+        )}>
         <p>intervenant has been deleted</p>
       </Modal>
      
@@ -153,33 +132,27 @@ return(
     
           <h3 style={{fontSize:"20px","marginLeft":"13px",maxWidth:300,borderBottom:"2px solid purple",marginBottom:"40px"}}>{update?"UPDATE":"ADD"} intervenant</h3>
           <Form.Item label="matricule" name={"matricule"} rules={[{required:true,message:"please fill needed field"}]}>
-          <Input   required={true} name="matricule" onChange={(e)=>handleChange(e)}/>
+          <Input required={true} name="matricule" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
           <Form.Item label="nom" name={"nom"} rules={[{required:true,message:"please fill needed field"}]}>
-          <Input   required={true} name="nom" onChange={(e)=>handleChange(e)}/>
+          <Input required={true} name="nom" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
         <Form.Item label="date naissance"  rules={[{required:true,message:"please fill needed field"}]}>
-          <Input name={"datenaissance"}  required={true} onChange={(e)=>handleChange(e)}/>
+          <Input name={"datenaissance"} type="date"  required={true} onChange={(e)=>handleChange(e)}/>
         </Form.Item>
-        <Form.Item label="DISPLOME" >
-          <Select name={'date_naissance'} onSelect={(e)=>handleChange(e,true)}>
-          <Select.Option name="date_naissance" value="aaa" >AAAA</Select.Option>
-          <Select.Option name="date_naissance" value="nn" >bbb</Select.Option>
+        <Form.Item label="Diplome" >
+          <Select name={'diplome'} onSelect={(e)=>handleChange(e,true)}>
+            {diplomes.map((item)=>(
+              <Select.Option value={item.name} key={item.id}>{item.name}</Select.Option>
+            ))}
           </Select>
         </Form.Item>
-      
-
-        <Form.Item label="type_intervenant"  rules={[{required:true,message:"please fill needed field"}]}>
-          <Input  name={"type_intervenant"} required={true} onChange={(e)=>handleChange(e)}/>
+         <Form.Item label="Type intervenant"  rules={[{required:true,message:"please fill needed field"}]}>
+          <Input name={'typeintervenant'} required={true} onChange={(e)=>handleChange(e)}/>
         </Form.Item>
-        {error?<Form.Item > <div style={{color:"red"}}>{error}</div>
-        </Form.Item>:null}
-
-      
         <Form.Item >
-          <Button onClick={()=>{createintervenant()}}>Confirm</Button>
+          <Button onClick={()=>{handleSubmit()}}>Confirm</Button>
         </Form.Item>
-
       </Form>
 
     </>
