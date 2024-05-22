@@ -67,15 +67,24 @@ setIsModalOpen2(true)
 
    const columns = [
     {
-      title: 'Name',
-      dataIndex: 'nom',
+      title: 'Nom complet',
       key: 'name',
-      render: (text) => <a>{text}</a>,
+      render: (text) => <a>{text.nom}</a>,
     },
     {
-      title: 'etablissement',
-      render:(a)=><div></div>,
-      key: 'address',
+      title: 'Matricule',
+      key: 'name',
+      render: (text) => <a>{text.matricule}</a>,
+    },
+    {
+      title: 'Matricule',
+      key: 'name',
+      render: (text) => <a>{text.matricule}</a>,
+    },
+    {
+      title: 'Etablissement',
+      key: 'name',
+      render: (text) => <a>{text.etablissement.nom_efp}</a>,
     },
 
     {

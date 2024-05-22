@@ -11,9 +11,9 @@ class Diplome extends Model
 
     protected $fillable = [
         'intitule_diplome',
-        'type_diplome',
+        'typediplome',
         'specialite_diplome',
-        'intervenant_id',
+        'intervenants_id',
     ];
     public function Intervenant(){
         return $this->belongsTo(Intervenant::class,'intervenants_id');

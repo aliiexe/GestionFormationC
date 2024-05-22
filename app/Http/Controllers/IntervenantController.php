@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diplome;
 use App\Models\Intervenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -42,12 +43,17 @@ class IntervenantController extends Controller
         $intevenant->datenaissance = $request->datenaissance;
         $intevenant->typeintervenant = $request->typeintervenant;
         $intevenant->status = $request->status;
-      
-
         $intevenant->users_id = $user->id;
         $intevenant->etablissements_id = $request->etablissement_id;
         $intevenant->status = '1';
         $intevenant->save();
+        $diplome = Diplome::create([
+            'libelle' => $request->libelle,
+            'intervenants_id' => $intevenant->id,
+            'intitule_diplome' => $request->intitule_diplome,
+            'typediplome' => $request->typediplome,
+            'specialite_diplome' => $request->specialite_diplome,
+        ]);
     }
 
     /**
