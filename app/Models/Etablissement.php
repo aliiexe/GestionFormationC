@@ -18,7 +18,7 @@ class Etablissement extends Model
         'user_id',
         'region_id'
     ];
-    public function intervenant()
+    public function intervenants()
     {
         return $this->hasMany(Intervenant::class,'etablissements_id');
     }

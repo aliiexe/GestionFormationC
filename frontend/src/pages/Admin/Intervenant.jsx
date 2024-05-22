@@ -43,7 +43,7 @@ setIsModalOpen2(true)
 
       }
   const getintervenants=async()=>{
-    await axiosclient.get('/intervenant').then((a)=>setintervenants(a.data))
+    await axiosclient.get('/intervenant').then((a)=>{setintervenants(a.data);console.log(a.data)})
   }
   const confirmupdate=async()=>{
     await axiosclient.put('/intervenant/'+update.id).then((a)=>{})
@@ -62,8 +62,8 @@ setIsModalOpen2(true)
       render: (text) => <a>{text}</a>,
     },
     {
-      title: 'Address',
-      dataIndex: 'adresse',
+      title: 'etablissement',
+      render:(a)=><div></div>,
       key: 'address',
     },
 
