@@ -3,17 +3,28 @@ import { useEffect, useState } from 'react'
 import { axiosclient } from '../api/axiosClient'
 import { Link, useLocation } from 'react-router-dom';
 import './Sidebar.css';
+import { useNavigate } from 'react-router'
+
 
 export default function AdminLayout() {
   
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
   const [user,setuser]=useState(null)
-  
-  useEffect(()=>{
+  const navigate=useNavigate()
+
+  useEffect(()=>{if(window.localStorage.getItem('token')){
     axiosclient.get('/api/user').then((a)=>{
-  setuser(a.data)
+      setuser(a.data)
+      if(a.data.email != 'x@gmail.com'){
+        navigate('/')
+    }else{
+        return
+    }   
     })
+  }else{
+    navigate('/')
+  }
   },[])
   return (
     <div className='main'>
@@ -49,7 +60,11 @@ export default function AdminLayout() {
               <img src="avatar.jpg" alt="avatar" className="avatar"/>
               <span className="username">{user?.name}</span>
             </div>
-            <Link href="#" className="logout">
+            <Link to="/" className="logout" onClick={()=>{
+              axiosclient.post('/logout').then(()=>{
+                window.localStorage.removeItem('token')
+              })
+            }}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="logout-icon">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
               </svg>

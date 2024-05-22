@@ -145,7 +145,7 @@ export default function GestionFormations() {
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
     const getFormations = () => {
-        axiosclient.get('/role').then((a) => {
+        axiosclient.get('/formation').then((a) => {
             setFormations(a.data)
             console.log(a.data)
             setLoading(false)

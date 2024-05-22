@@ -27,7 +27,7 @@ return new class extends Migration
             $table->dateTime('date_fin_real');
             $table->float('prix_reel');
             $table->integer('nbparticipants');
-            $table->integer('status');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

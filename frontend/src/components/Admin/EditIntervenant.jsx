@@ -35,7 +35,7 @@ export default function EditIntervenant({handleChange, handleEdit, intervenant, 
                   </select>
               </div>
           </div>
-              <button type="submit" onClick={handleEdit} className="add-button">Ajouter</button>
+              <button type="submit" onClick={handleEdit} className="add-button">Modifier</button>
       </div>
   )
 }

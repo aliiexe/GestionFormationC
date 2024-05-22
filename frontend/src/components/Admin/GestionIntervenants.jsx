@@ -195,7 +195,7 @@ export default function GestionIntervenants() {
                 <Dialog header="Ajout d'un intervenant" visible={visible} style={{width: '50vw'}} onHide={() => setVisible(false)}>
                     <CreateIntervenant intervenant={intervenant} handleChange={handleChange} etablissement={etablissement} handleSubmit={handleSubmit} diplomes={diplomes}/>
                 </Dialog>
-                <Dialog header="Modifier un formateur" visible={editVisible} style={{width: '50vw'}} onHide={() => setEditVisible(false)}>
+                <Dialog header="Modifier un intervenant" visible={editVisible} style={{width: '50vw'}} onHide={() => setEditVisible(false)}>
                     <EditIntervenant setIntervenant={setEditIntervenant} intervenant={editIntervenant} etablissement={etablissement} handleChange={(e) => handleChange(e, true)} handleEdit={handleEdit} diplomes={diplomes} />
                 </Dialog>
                 <div className="container">

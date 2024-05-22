@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('nbjours');
             $table->integer('nbparticipants');
             $table->float('cout_previsionel');
-            $table->integer('status');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

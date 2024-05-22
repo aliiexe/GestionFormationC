@@ -1,6 +1,6 @@
 import  {Outlet, useLocation} from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Button, Dialog } from '@headlessui/react'
+import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { axiosclient } from '../api/axiosClient'
 import {Link} from 'react-router-dom'
@@ -35,7 +35,7 @@ const logout=()=>{
               <span className="sr-only">Votre entreprise</span>
               <img
                 className="h-8 w-auto"
-                src="images/ofppt.png"
+                src="images/ofppt-logo.png"
                 alt=""
               />
             </a>
@@ -121,12 +121,12 @@ const logout=()=>{
                   ))}
                 </div>
                 <div className="py-6">
-                  <a
-                    href="#"
+                  <Link
+                   to={'/login'}
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Se connecter
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

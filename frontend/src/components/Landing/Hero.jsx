@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom'
 
 
 const navigation = [
@@ -45,12 +46,12 @@ export default function Hero() {
               Cherchiez vous à améliorer vos compétences dans un domaine spécifique ou à explorer un nouveau domaine ? L&apos;office de formation professionel et de la promotion de travail propose une variété de programmes de formation continue.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
+              <Link
+                to={'/login'}
                 className="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Commencer
-              </a>
+              </Link>
               <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
                 En savoir plus <span aria-hidden="true">→</span>
               </a>

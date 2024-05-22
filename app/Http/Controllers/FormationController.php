@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Formation;
+use App\Models\Theme;
 use Illuminate\Http\Request;
+
 
 class FormationController extends Controller
 {
@@ -12,7 +13,7 @@ class FormationController extends Controller
      */
     public function index()
     {
-        return response()->json(Formation::all());
+        return response()->json(Theme::all());
     }
 
     /**
@@ -28,7 +29,7 @@ class FormationController extends Controller
      */
     public function store(Request $request)
     {
-        $formation = new Formation();
+        $formation = new Theme();
         $formation->intitule_theme = $request->intitule_theme;
         $formation->duree_formation = $request->duree_formation;
         $formation->status = $request->status;
@@ -39,7 +40,7 @@ class FormationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Formation $formation)
+    public function show(Theme $formation)
     {
         //
     }
@@ -47,7 +48,7 @@ class FormationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Formation $formation)
+    public function edit(Theme $formation)
     {
         //
     }
@@ -55,7 +56,7 @@ class FormationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Formation $formation)
+    public function update(Request $request, Theme $formation)
     {
         //
     }
@@ -63,7 +64,7 @@ class FormationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Formation $formation)
+    public function destroy(Theme $formation)
     {
         //
     }
