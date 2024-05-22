@@ -61,9 +61,14 @@ export default function Intervenant(){
       render: (text) => <a>{text.matricule}</a>,
     },
     {
-      title: 'Matricule',
+      title: 'Date de naissance',
       key: 'name',
-      render: (text) => <a>{text.matricule}</a>,
+      render: (text) => <a>{text.datenaissance}</a>,
+    },
+    {
+      title: 'Type intervenant',
+      key: 'name',
+      render: (text) => <a>{text.typeintervenant}</a>,
     },
     {
       title: 'Etablissement',

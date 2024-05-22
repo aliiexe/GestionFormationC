@@ -16,6 +16,7 @@ class Intervenant extends Model
         'typeintervenant',
         'etablissement_id',
         'user_id',
+        'image',
     ];
     public function certficats()
     {

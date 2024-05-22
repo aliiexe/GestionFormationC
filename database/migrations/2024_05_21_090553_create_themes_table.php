@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('intitule_theme');
             $table->integer('duree_formation');
             $table->integer('status')->nullable();
+            $table->string('image')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

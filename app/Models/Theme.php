@@ -13,6 +13,8 @@ class Theme extends Model
         'intitule_theme',
         'duree_formation',
         'status',
-        'domaines_id'
+        'domaines_id',
+        'image',
+        'description'
     ];
 }

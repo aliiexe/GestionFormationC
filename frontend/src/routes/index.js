@@ -11,6 +11,7 @@ import competences from '../components/Admin/Competences'
 import Certification from '../components/Admin/Certification'
 
 import Intervenant from '../pages/Admin/Intervenant.jsx'
+import Formation from '../pages/Admin/Formation.jsx'
 import PassReset from '../pages/PassReset/PassReset.jsx'
 
 export const router=createBrowserRouter([
@@ -27,9 +28,9 @@ export const router=createBrowserRouter([
     ,
     {Component:AdminLayout,children:[
         {path:"/",Component:Landing}
-        ,{path:'/roles',Component:Gestionroles}
-        ,{path:'/formation',Component:GestionFormations},
-        {path:'/intervenant',Component:Intervenant}
+        ,{path:'/roles',Component:Gestionroles},
+        {path:'/intervenant',Component:Intervenant},
+        {path:'/formation',Component:Formation}
     ]}
 
 ])
