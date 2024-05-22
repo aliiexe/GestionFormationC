@@ -14,7 +14,7 @@ class IntervenantController extends Controller
      */
     public function index()
     {
-        return response()->json(Intervenant::with('competences')->all());
+        return response()->json(Intervenant::with('etablissement')->get());
     }
 
     /**

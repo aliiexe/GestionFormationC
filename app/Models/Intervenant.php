@@ -25,7 +25,7 @@ class Intervenant extends Model
     {
         return $this->hasMany(Competence::class);
     }
-    public function etablissements(){
+    public function etablissement(){
         return $this->belongsTo(Etablissement::class,'etablissements_id');
     }
 }
