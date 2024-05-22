@@ -36,6 +36,6 @@ class Intervenant extends Model
         return $this->belongsTo(Etablissement::class, 'etablissements_id'); // Assurez-vous que la clé étrangère est correcte
     }
     public function diplomes(){
-        return $this->hasMany(Diplome::class,"intervenants_id");
+        return $this->hasOne(Diplome::class,"intervenants_id");
     }
 }

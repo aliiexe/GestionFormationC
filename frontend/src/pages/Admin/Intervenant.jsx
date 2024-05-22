@@ -84,7 +84,7 @@ setIsModalOpen2(true)
     {
       title: 'Etablissement',
       key: 'name',
-      render: (text) => <a>{text.etablissement.nom_efp}</a>,
+      render: (text) => <a>{text.etablissement?.nom_efp}</a>,
     },
 
     {
@@ -123,6 +123,21 @@ axiosclient.post('/intervenant',intervenant)
 .then(e=>console.log(e))
   }
   const handleedit=(e,isselect,type)=>{
+    if(isselect==true){
+      if(type=="type"){
+        setintervenant({...intervenant,"typeintervenant":e})
+        console.log(intervenant)
+      }else if(type=="etablissement"){
+        setintervenant({...intervenant,"etablissement_id":e})
+        console.log(intervenant)
+      }
+  
+    }else{
+    setintervenant({...intervenant,[e.target.name]:e.target.value})
+    console.log(e.target.name,"   ",e.target.value)
+    console.log(intervenant)}
+  }
+  const handleChange=(e,isselect,type)=>{
     if(isselect==true){
       if(type=="type"){
         setintervenant({...intervenant,"typeintervenant":e})
@@ -196,9 +211,9 @@ return(
   { name: "datenaissance", value: updintervenant.datenaissance },
   { name: "etablissements_id", value: updintervenant.etablissements_id},
   { name: "typeintervenant", value: updintervenant.typeintervenant },
-  { name: "intitule_diplome", value: updintervenant.intitule_diplome },
-  { name: "typediplome", value: updintervenant.typediplome },
-  { name: "specialite_diplome", value: updintervenant.specialite_diplome }
+  { name: "intitule_diplome", value: updintervenant.diplomes.intitule_diplome },
+  { name: "typediplome", value: updintervenant.diplomes.typediplome },
+  { name: "specialite_diplome", value: updintervenant.diplomes.specialite_diplome }
 ]}
       form={form} onFinish={(values)=>createbook(values)}
         labelCol={{
@@ -268,41 +283,41 @@ return(
       >
           <h3 style={{fontSize:"20px","marginLeft":"13px",maxWidth:300,borderBottom:"2px solid purple",marginBottom:"40px"}}>{update?"UPDATE":"ADD"} intervenant</h3>
           <Form.Item label="matricule" name={"matricule"} rules={[{required:true,message:"please fill needed field"}]}>
-          <Input   required={true} name="matricule" onChange={(e)=>handleedit(e)}/>
+          <Input   required={true} name="matricule" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
         <Form.Item label="email" name={"email"} rules={[{required:true,message:"please fill needed field"}]}>
-          <Input   required={true} name="email" onChange={(e)=>handleedit(e)}/>
+          <Input   required={true} name="email" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
         <Form.Item label="password" name={"password"} rules={[{required:true,message:"please fill needed field"}]}>
-          <Input   required={true} name="password" onChange={(e)=>handleedit(e)}/>
+          <Input   required={true} name="password" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
           <Form.Item label="nom" name={"nom"} rules={[{required:true,message:"please fill needed field"}]}>
-          <Input   required={true} name="nom" onChange={(e)=>handleedit(e)}/>
+          <Input   required={true} name="nom" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
         <Form.Item label="date naissance"  rules={[{required:true,message:"please fill needed field"}]}>
-          <Input name={"datenaissance"} type="date" required={true} onChange={(e)=>handleedit(e)}/>
+          <Input name={"datenaissance"} type="date" required={true} onChange={(e)=>handleChange(e)}/>
         </Form.Item>
         <Form.Item label="etablissement">
-          <Select name={'etablisssement'} onSelect={(e)=>handleedit(e,true,"etablissement")}>
+          <Select name={'etablisssement'} onSelect={(e)=>handleChange(e,true,"etablissement")}>
           {etablissement.map((e)=>{return(
               <Select.Option name="etablissement" value={e.id} key={e.id} >{e.nom_efp}</Select.Option>
           )})}
           </Select>
         </Form.Item>   
         <Form.Item label="type intervenant">
-          <Select name={'type'} onSelect={(e)=>handleedit(e,true,"type")}>
+          <Select name={'type'} onSelect={(e)=>handleChange(e,true,"type")}>
           <Select.Option name="typeintervenant" value="interne" >interne</Select.Option>
           <Select.Option name="typeintervenant" value="externe" >externe</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item label="intitule diplome"  rules={[{required:true,message:"please fill needed field"}]}>
-          <Input name={"intitule_diplome"}  required={true} onChange={(e)=>handleedit(e)}/>
+          <Input name={"intitule_diplome"}  required={true} onChange={(e)=>handleChange(e)}/>
         </Form.Item>
         <Form.Item label="type diplome"  rules={[{required:true,message:"please fill needed field"}]}>
-          <Input name={"typediplome"}  required={true} onChange={(e)=>handleedit(e)}/>
+          <Input name={"typediplome"}  required={true} onChange={(e)=>handleChange(e)}/>
         </Form.Item>
         <Form.Item label="specialite diplome"  rules={[{required:true,message:"please fill needed field"}]}>
-          <Input name={"specialite_diplome"}  required={true} onChange={(e)=>handleedit(e)}/>
+          <Input name={"specialite_diplome"}  required={true} onChange={(e)=>handleChange(e)}/>
         </Form.Item>
       
         <Form.Item >
