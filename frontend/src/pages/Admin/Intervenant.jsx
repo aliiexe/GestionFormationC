@@ -21,8 +21,7 @@ import {
   const { RangePicker } = DatePicker;
   const { TextArea } = Input;
   import { Modal } from 'antd';
-  import { axiosclient } from "../../api/axiosClient";
-  import Item from "antd/es/list/Item";
+import { axiosclient } from "../../api/axiosClient";
 
 export default function Intervenant(){
   const [isModalOpen2, setIsModalOpen2] = useState(false);
@@ -73,8 +72,8 @@ setIsModalOpen2(true)
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <a><EditOutlined onClick={()=>handleUpdate(record)}/></a>
-          <a><DeleteOutlined onClick={()=>handleDelete(record.id)}/></a>
+          <a><EditOutlined onClick={()=>updateintervenant(record)}/></a>
+          <a><DeleteOutlined onClick={()=>deleteintervenant(record.id)}/></a>
         </Space>)
 
     },
@@ -152,7 +151,8 @@ return(
           <>
             <OkBtn />
           </>
-        )}>
+        )}
+      >
         <p>intervenant has been deleted</p>
       </Modal>
 
@@ -187,7 +187,7 @@ return(
           <Input   required={true} name="password" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
           <Form.Item label="nom" name={"nom"} rules={[{required:true,message:"please fill needed field"}]}>
-          <Input required={true} name="nom" onChange={(e)=>handleChange(e)}/>
+          <Input   required={true} name="nom" onChange={(e)=>handleChange(e)}/>
         </Form.Item>
         <Form.Item label="date naissance"  rules={[{required:true,message:"please fill needed field"}]}>
           <Input name={"datenaissance"} type="date" required={true} onChange={(e)=>handleChange(e)}/>
@@ -195,7 +195,7 @@ return(
         <Form.Item label="etablissement">
           <Select name={'etablisssement'} onSelect={(e)=>handleChange(e,true,"etablissement")}>
           {etablissement.map((e)=>{return(
-              <Select.Option name="etablissement" value={e.id} >{e.nom_efp}</Select.Option>
+              <Select.Option name="etablissement" value={e.id} key={e.id} >{e.nom_efp}</Select.Option>
           )})}
           <Select.Option name="" value="nn" >bbb</Select.Option>
           </Select>
@@ -220,8 +220,9 @@ return(
           <Input name={"specialite_diplome"}  required={true} onChange={(e)=>handleChange(e)}/>
         </Form.Item>
         <Form.Item >
-          <Button onClick={()=>{handleSubmit()}}>Confirm</Button>
+          <Button onClick={()=>{createintervenant()}}>Confirm</Button>
         </Form.Item>
+
       </Form>
 
     </>

@@ -9,10 +9,7 @@ use App\Http\Controllers\FormationController;
 use App\Http\Controllers\IntervenantController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CertificationController;
-use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\DomaineController;
-
-use App\Models\AffectationIC;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
