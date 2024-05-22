@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('adresse');
             $table->string('telephone');
             $table->string('ville');
-            $table->string('status');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

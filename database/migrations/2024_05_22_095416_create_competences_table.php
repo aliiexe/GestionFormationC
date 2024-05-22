@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('themes', function (Blueprint $table) {
+        Schema::create('competences', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('domaines_id');
-            $table->foreign('domaines_id')->references('id')->on('domaines')->onDelete('cascade');
-            $table->string('intitule_theme');
-            $table->integer('duree_formation');
-            $table->integer('status')->nullable();
+            $table->string('libelle');
+            $table->unsignedBigInteger('intervenants_id');
+            $table->foreign('intervenants_id')->references('id')->on('intervenants')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('themes');
+        Schema::dropIfExists('competences');
     }
 };

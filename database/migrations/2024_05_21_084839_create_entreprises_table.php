@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('site');
             $table->string('logo');
-            $table->integer('status');
+            $table->integer('status')->nullable();
             $table->string('representant');
             $table->string('Telephone1');
             $table->string('Telephone2');

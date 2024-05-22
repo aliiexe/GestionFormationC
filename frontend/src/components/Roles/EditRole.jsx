@@ -13,7 +13,7 @@ export default function EditRole({handleChange, handleEdit, role}) {
                 </div>
             </div>
             </div>
-          <button type="submit" onClick={handleEdit} className="add-button">Ajouter</button>
+          <button type="submit" onClick={handleEdit} className="add-button">Modifier</button>
       </div>
   )
 }

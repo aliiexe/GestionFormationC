@@ -21,16 +21,7 @@ return new class extends Migration
             $table->string('nom');
             $table->date('datenaissance');
             $table->string('typeintervenant');
-            $table->integer('status');
-
-
-
-
-
-
-
-
-
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }
