@@ -11,16 +11,16 @@ class Etablissement extends Model
 
     protected $fillable = [
         'nom_efp',
-        'adress',
-        'tel',
+        'adresse',
+        'telephone',
         'ville',
         'status',
-        'user_id',
-        'region_id'
+        'regions_id'
     ];
 
-    public function intervenants()
+    
+    public function region()
     {
-        return $this->hasMany(Intervenant::class);
+        return $this->belongsTo(Region::class, 'regions_id');
     }
 }
