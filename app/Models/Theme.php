@@ -17,4 +17,9 @@ class Theme extends Model
         'image',
         'description'
     ];
+
+    public function domaines()
+    {
+        return $this->belongsTo(Domaine::class);
+    }
 }

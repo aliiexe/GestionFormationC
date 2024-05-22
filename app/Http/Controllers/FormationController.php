@@ -13,7 +13,7 @@ class FormationController extends Controller
      */
     public function index()
     {
-        return response()->json(Theme::all());
+        return response()->json(Theme::with('domaines')->get());
     }
 
     /**
@@ -42,6 +42,21 @@ class FormationController extends Controller
         ]);
         $formation->domaines_id = 1;
         $formation->save();
+    }
+
+    public function updateImage(Request $request) {
+        return response()->json($request->all());
+        $values=$request->all();
+        $formation=Theme::find($request->id);
+        if($image=$request->file('image')){
+            $name = date('YmdHis').'.'.$image->getClientOriginalExtension();
+            $image->move('../frontend/public/images',$name);
+            $values['image']=$name;
+        }
+        $formation->update($values);
+
+        return response()->json($request->all());
+
     }
 
     /**

@@ -55,7 +55,7 @@ export default function Intervenant() {
     {
       title: 'Matricule',
       key: 'name',
-      render: (text) => <a>{text.typeintervenant}</a>,
+      render: (text) => <a>{text.matricule}</a>,
     },
     {
       title: 'Etablissement',
