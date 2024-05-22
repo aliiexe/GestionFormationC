@@ -12,6 +12,7 @@ import Certification from '../components/Admin/Certification'
 import Region from '../pages/Admin/Region'
 import Intervenant from '../pages/Admin/Intervenant.jsx'
 import Etablissement from '../pages/Admin/Etablissement.jsx'
+import Domaine from '../pages/Admin/Domaine'
 
 import PassReset from '../pages/PassReset/PassReset.jsx'
 
@@ -34,7 +35,8 @@ export const router=createBrowserRouter([
         ,{path:'/formation',Component:GestionFormations},
         {path:'/intervenant',Component:Intervenant},
         {path:'/regions',Component:Region},
-        {path:'/etablissement',Component:Etablissement}
+        {path:'/etablissement',Component:Etablissement},
+        {path:'/domaines',Component:Domaine}
     ]}
 
 ])
