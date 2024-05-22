@@ -59,7 +59,7 @@ setIsModalOpen2(true)
       title: 'Name',
       dataIndex: 'nom',
       key: 'name',
-      render: (text) => <a>{text}</a>,
+      render: (text) => <a>{}</a>,
     },
     {
       title: 'etablissement',
