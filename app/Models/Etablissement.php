@@ -11,16 +11,16 @@ class Etablissement extends Model
 
     protected $fillable = [
         'nom_efp',
-        'adresse', // Correction de 'adress' à 'adresse'
-        'tel',
+        'adresse',
+        'telephone',
         'ville',
         'status',
-        'user_id',
-        'region_id'
+        'regions_id'
     ];
 
-    public function intervenants()
+
+    public function region()
     {
-        return $this->hasMany(Intervenant::class, 'etablissements_id'); // Assurez-vous que la clé étrangère est correcte
+        return $this->belongsTo(Region::class, 'regions_id');
     }
 }

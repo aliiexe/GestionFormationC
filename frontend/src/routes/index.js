@@ -9,8 +9,10 @@ import Gestionroles from '../components/Roles/GestionRoles.jsx'
 import GestionFormations from '../Formation/GestionFormations.jsx'
 import competences from '../components/Admin/Competences'
 import Certification from '../components/Admin/Certification'
-
+import Region from '../pages/Admin/Region'
 import Intervenant from '../pages/Admin/Intervenant.jsx'
+import Etablissement from '../pages/Admin/Etablissement.jsx'
+
 import PassReset from '../pages/PassReset/PassReset.jsx'
 
 export const router=createBrowserRouter([
@@ -20,7 +22,8 @@ export const router=createBrowserRouter([
     {path:'/recupere',Component:Recuperation},
     {path:'/competences',Component:competences},
     {path:'/certifications',Component:Certification},
-    {path:'/reset',Component:PassReset}
+
+    {path:'/reset',Component:PassReset},
 ]}
 
 
@@ -29,7 +32,9 @@ export const router=createBrowserRouter([
         {path:"/",Component:Landing}
         ,{path:'/roles',Component:Gestionroles}
         ,{path:'/formation',Component:GestionFormations},
-        {path:'/intervenant',Component:Intervenant}
+        {path:'/intervenant',Component:Intervenant},
+        {path:'/regions',Component:Region},
+        {path:'/etablissement',Component:Etablissement}
     ]}
 
 ])
