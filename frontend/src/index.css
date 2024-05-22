@@ -12,3 +12,7 @@ body{
 #ide{
     opacity: 0 !important;
 }
+
+*  {
+    font-family: Inter var;
+}
