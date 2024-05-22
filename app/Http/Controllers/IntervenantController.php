@@ -44,7 +44,7 @@ class IntervenantController extends Controller
         $intevenant->typeintervenant = $request->typeintervenant;
         $intevenant->status = $request->status;
         $intevenant->users_id = $user->id;
-        $intevenant->etablissements_id = $request->etablissement_id;
+        $intevenant->etablissements_id = $request->etablissements_id;
         $intevenant->status = '1';
         $intevenant->save();
         $diplome = Diplome::create([
@@ -83,10 +83,15 @@ class IntervenantController extends Controller
         $intervenant->datenaissance = $request->datenaissance;
         $intervenant->typeintervenant = $request->typeintervenant;
         $intervenant->status = $request->status;
-        $intervenant->users_id = 3;
-        $intervenant->etablissements_id = 2;
+
+        $intervenant->etablissements_id = $request->etablissements_id;
         $intervenant->status = '1';
         $intervenant->save();
+        $diplome=Diplome::where('intervenants_id',$intervenant->id)->get()->first();
+        $diplome->intitule_diplome=$request->intitule_diplome;
+        $diplome->specialite_diplome=$request->specialite_diplome;
+        $diplome->typediplome=$request->typediplome;
+        $diplome->save();
     }
 
     /**
