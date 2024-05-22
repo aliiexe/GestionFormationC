@@ -13,6 +13,13 @@ class Certification extends Model
         'intitule_certification',
         'organisme_certification',
         'type_certification',
-        'domaine_id',
+        'domaines_id',
+        'intervenants_id'
     ];
+
+
+    public function intervenants()
+    {
+        return $this->belongsTo(Intervenant::class);
+    }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('domaines_id');
-            $table->foreign('domaines_id')->references('id')->on('domaines')->onDelete('cascade');
+            $table->foreign('domaines_id')->references('id')->on('domaines')->onDelete('cascade')->onUpdate('cascade');
             $table->string('intitule_theme');
             $table->integer('duree_formation');
             $table->integer('status')->nullable();

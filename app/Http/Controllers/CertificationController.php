@@ -2,64 +2,92 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Certification;
 use Illuminate\Http\Request;
+use App\Models\Certification;
+use App\Models\Domaine;
+use App\Models\Intervenant;
 
 class CertificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $certifications = Certification::all();
+        return response()->json($certifications);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $domaines = Domaine::all();
+        $intervenants = Intervenant::all();
+        return response()->json([
+            'domaines' => $domaines,
+            'intervenants' => $intervenants
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'intitule_certification' => 'required|string|max:255',
+            'organisme_certification' => 'required|string|max:255',
+            'type_certification' => 'required|string|max:255',
+            'domaines_id' => 'required|exists:domaines,id',
+            'intervenants_id' => 'required|exists:intervenants,id',
+        ]);
+
+        $certification = Certification::create($request->all());
+
+        return response()->json([
+            'message' => 'Certification créée avec succès.',
+            'certification' => $certification
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Certification $certification)
+    public function show($id)
     {
-        //
+        $certification = Certification::findOrFail($id);
+        return response()->json($certification);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Certification $certification)
+    public function edit($id)
     {
-        //
+        $certification = Certification::findOrFail($id);
+        $domaines = Domaine::all();
+        $intervenants = Intervenant::all();
+        return response()->json([
+            'certification' => $certification,
+            'domaines' => $domaines,
+            'intervenants' => $intervenants
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Certification $certification)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'intitule_certification' => 'required|string|max:255',
+            'organisme_certification' => 'required|string|max:255',
+            'type_certification' => 'required|string|max:255',
+            'domaines_id' => 'required|exists:domaines,id',
+            'intervenants_id' => 'required|exists:intervenants,id',
+        ]);
+
+        $certification = Certification::findOrFail($id);
+        $certification->update($request->all());
+
+        return response()->json([
+            'message' => 'Certification mise à jour avec succès.',
+            'certification' => $certification
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Certification $certification)
+    public function destroy($id)
     {
-        //
+        $certification = Certification::findOrFail($id);
+        $certification->delete();
+
+        return response()->json([
+            'message' => 'Certification supprimée avec succès.'
+        ]);
     }
 }
+

@@ -13,7 +13,7 @@ class DiplomeController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Diplome::all());
     }
     public function users()
     {
@@ -33,7 +33,12 @@ class DiplomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $diplome = new Diplome();
+        $diplome->intitule_diplome = $request->intitule_diplome;
+        $diplome->type_diplome = $request->type_diplome;
+        $diplome->specialite_diplome = $request->specialite_diplome;
+        $diplome->user_id = $request->user_id;
+        $diplome->save();
     }
 
     /**
@@ -57,7 +62,12 @@ class DiplomeController extends Controller
      */
     public function update(Request $request, Diplome $diplome)
     {
-        //
+        $diplome = new Diplome();
+        $diplome->intitule_diplome = $request->intitule_diplome;
+        $diplome->type_diplome = $request->type_diplome;
+        $diplome->specialite_diplome = $request->specialite_diplome;
+        $diplome->user_id = $request->user_id;
+        $diplome->save();
     }
 
     /**
@@ -65,6 +75,6 @@ class DiplomeController extends Controller
      */
     public function destroy(Diplome $diplome)
     {
-        //
+        $diplome->delete();
     }
 }

@@ -66,7 +66,7 @@ setIsModalOpen2(true)
       dataIndex: 'adresse',
       key: 'address',
     },
-    
+
     {
       title: 'Action',
       key: 'action',
@@ -75,7 +75,7 @@ setIsModalOpen2(true)
           <a><EditOutlined onClick={()=>updateintervenant(record)}/></a>
           <a><DeleteOutlined onClick={()=>deleteintervenant(record.id)}/></a>
         </Space>)
-      
+
     },
   ];
   const normFile = (e) => {
@@ -97,7 +97,7 @@ const onChange=((e)=>{
  console.log(intervenant)
 seterror('all fields are required')
 
-   
+
       seterror()
 axiosclient.post('/intervenant',intervenant)
 .then(e=>console.log(e))
@@ -155,7 +155,7 @@ return(
       >
         <p>intervenant has been deleted</p>
       </Modal>
-     
+
     </>
     <Form.Item>
 <h3 style={{fontSize:"20px","marginLeft":"13px",borderBottom:"2px solid purple",  maxWidth: 300,}}>intervenantS </h3>
@@ -175,7 +175,7 @@ return(
           maxWidth: 600,
         }}
       >
-    
+
           <h3 style={{fontSize:"20px","marginLeft":"13px",maxWidth:300,borderBottom:"2px solid purple",marginBottom:"40px"}}>{update?"UPDATE":"ADD"} intervenant</h3>
           <Form.Item label="matricule" name={"matricule"} rules={[{required:true,message:"please fill needed field"}]}>
           <Input   required={true} name="matricule" onChange={(e)=>handleChange(e)}/>
@@ -200,7 +200,7 @@ return(
           <Select.Option name="" value="nn" >bbb</Select.Option>
           </Select>
         </Form.Item>
-      
+
 
    
         <Form.Item label="type intervenant">

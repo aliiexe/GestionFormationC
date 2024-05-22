@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('certifications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('domaines_id');
-            $table->foreign('domaines_id')->references('id')->on('domaines')->onDelete('cascade');
+            $table->foreign('domaines_id')->references('id')->on('domaines')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('intervenants_id');
-            $table->foreign('intervenants_id')->references('id')->on('intervenants')->onDelete('cascade');
+            $table->foreign('intervenants_id')->references('id')->on('intervenants')->onDelete('cascade')->onUpdate('cascade');
             $table->string('intitule_certification');
             $table->string('organisme_certification');
             $table->string('typecertification');
