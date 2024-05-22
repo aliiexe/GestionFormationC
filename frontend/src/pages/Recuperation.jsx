@@ -1,11 +1,12 @@
+
 import { axiosclient } from '../api/axiosClient';
 import { useEffect, useState } from 'react';
-
-
-export default function Recuperation() { 
-;
-
-
-  return(<></>)
+export default function Recuperation(){
+   
+return (
+    <div>
+      
+    </div>
+  );
 
 }

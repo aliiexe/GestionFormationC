@@ -5,12 +5,13 @@ import AdminLayout from '../layouts/AdminLayout.jsx'
 import SignUp from '../pages/SignUp/SignUp.jsx'
 import Login from '../pages/Login/login'
 import Recuperation from '../pages/Recuperation.jsx'
-import GestionIntervenants from '../components/Admin/GestionIntervenants'
 import Gestionroles from '../components/Roles/GestionRoles.jsx'
 import GestionFormations from '../Formation/GestionFormations.jsx'
 import competences from '../components/Admin/Competences'
 import Certification from '../components/Admin/Certification'
 
+import Intervenant from '../pages/Admin/Intervenant.jsx'
+import PassReset from '../pages/PassReset/PassReset.jsx'
 
 export const router=createBrowserRouter([
     {Component:GuestLayout,children:[{path:"/",Component:Landing},
@@ -18,13 +19,17 @@ export const router=createBrowserRouter([
       {path:'/Login',Component:Login},
     {path:'/recupere',Component:Recuperation},
     {path:'/competences',Component:competences},
-    {path:'/certifications',Component:Certification}]}
+    {path:'/certifications',Component:Certification},
+    {path:'/reset',Component:PassReset}
+]}
+
+
     ,
     {Component:AdminLayout,children:[
         {path:"/",Component:Landing}
-        ,{path:'/intervenants',Component:GestionIntervenants}
         ,{path:'/roles',Component:Gestionroles}
-        ,{path:'/formation',Component:GestionFormations}
+        ,{path:'/formation',Component:GestionFormations},
+        {path:'/intervenant',Component:Intervenant}
     ]}
 
 ])

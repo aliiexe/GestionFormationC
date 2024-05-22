@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('actions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('entreprises_id');
-            $table->foreign('entreprises_id')->references('id')->on('entreprises')->onDelete('cascade');
+            $table->foreign('entreprises_id')->references('id')->on('entreprises')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('themes_id');
             $table->foreign('themes_id')->references('id')->on('themes')->onDelete('cascade');
             $table->unsignedBigInteger('intervenants_id');
-            $table->foreign('intervenants_id')->references('id')->on('intervenants')->onDelete('cascade');
+            $table->foreign('intervenants_id')->references('id')->on('intervenants')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('etablissements_id');
-            $table->foreign('etablissements_id')->references('id')->on('etablissements')->onDelete('cascade');
+            $table->foreign('etablissements_id')->references('id')->on('etablissements')->onDelete('cascade')->onUpdate('cascade');
             $table->dateTime('date_debut_prev');
             $table->dateTime('date_fin_prev');
             $table->dateTime('date_debut_real');

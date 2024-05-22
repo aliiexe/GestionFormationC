@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\DiplomeController;
 use App\Http\Controllers\EtablissementController;
 use App\Http\Controllers\FormationController;
@@ -23,6 +24,6 @@ Route::resource('etablissement',EtablissementController::class);
 Route::resource('role',RoleController::class);
 Route::resource('formation',FormationController::class);
 Route::resource('certifications',CertificationController::class);
-Route::resource('certifications',CertificationController::class);
 Route::resource('competences',CompetenceController::class);
 Route::resource('domaines',DomaineController::class);
+Route::post('password/email', [PasswordResetLinkController::class,'store'])->name('password.email');
