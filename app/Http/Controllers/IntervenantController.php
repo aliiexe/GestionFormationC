@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Intervenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class IntervenantController extends Controller
 {
@@ -29,13 +31,21 @@ class IntervenantController extends Controller
     public function store(Request $request)
     {
         $intevenant = new Intervenant();
+        $user = User::create([
+            'name' => $request->nom,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'roles_id'=>3
+        ]);
         $intevenant->nom = $request->nom;
         $intevenant->matricule = $request->matricule;
         $intevenant->datenaissance = $request->datenaissance;
         $intevenant->typeintervenant = $request->typeintervenant;
         $intevenant->status = $request->status;
-        $intevenant->users_id = 3;
-        $intevenant->etablissements_id = 2;
+      
+
+        $intevenant->users_id = $user->id;
+        $intevenant->etablissements_id = $request->etablissement_id;
         $intevenant->status = '1';
         $intevenant->save();
     }
