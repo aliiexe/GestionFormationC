@@ -55,7 +55,7 @@ setIsModalOpen2(true)
   }
 const useEffect(() => {
  axiosclient
-},[])
+},[]);
    const columns = [
     {
       title: 'Name',
@@ -68,7 +68,7 @@ const useEffect(() => {
       dataIndex: 'adresse',
       key: 'address',
     },
-    
+
     {
       title: 'Action',
       key: 'action',
@@ -77,7 +77,7 @@ const useEffect(() => {
           <a><EditOutlined onClick={()=>updateintervenant(record)}/></a>
           <a><DeleteOutlined onClick={()=>deleteintervenant(record.id)}/></a>
         </Space>)
-      
+
     },
   ];
   const normFile = (e) => {
@@ -96,10 +96,10 @@ const onChange=((e)=>{
   const[error,seterror]=useState()
 
   const createintervenant=()=>{
- 
+
 seterror('all fields are required')
 
-   
+
       seterror()
 axiosclient.post('/intervenant',{})
 .then()
@@ -113,7 +113,7 @@ axiosclient.post('/intervenant',{})
     console.log(e.target.name,"   ",e.target.value)
     console.log(intervenant)}
   }
-  
+
 return(
     <>
      <>
@@ -130,7 +130,7 @@ return(
       >
         <p>intervenant has been deleted</p>
       </Modal>
-     
+
     </>
     <Form.Item>
 <h3 style={{fontSize:"20px","marginLeft":"13px",borderBottom:"2px solid purple",  maxWidth: 300,}}>intervenantS </h3>
@@ -150,7 +150,7 @@ return(
           maxWidth: 600,
         }}
       >
-    
+
           <h3 style={{fontSize:"20px","marginLeft":"13px",maxWidth:300,borderBottom:"2px solid purple",marginBottom:"40px"}}>{update?"UPDATE":"ADD"} intervenant</h3>
           <Form.Item label="matricule" name={"matricule"} rules={[{required:true,message:"please fill needed field"}]}>
           <Input   required={true} name="matricule" onChange={(e)=>handleChange(e)}/>
@@ -167,7 +167,7 @@ return(
           <Select.Option name="date_naissance" value="nn" >bbb</Select.Option>
           </Select>
         </Form.Item>
-      
+
 
         <Form.Item label="type_intervenant"  rules={[{required:true,message:"please fill needed field"}]}>
           <Input  name={"type_intervenant"} required={true} onChange={(e)=>handleChange(e)}/>
@@ -175,7 +175,7 @@ return(
         {error?<Form.Item > <div style={{color:"red"}}>{error}</div>
         </Form.Item>:null}
 
-      
+
         <Form.Item >
           <Button onClick={()=>{createintervenant()}}>Confirm</Button>
         </Form.Item>
