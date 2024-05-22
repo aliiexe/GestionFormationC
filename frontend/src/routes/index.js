@@ -7,6 +7,7 @@ import Login from '../pages/Login/login'
 import Recuperation from '../pages/Recuperation.jsx'
 import Gestionroles from '../components/Roles/GestionRoles.jsx'
 import GestionFormations from '../Formation/GestionFormations.jsx'
+import Intervenant from '../pages/Admin/Intervenant.jsx'
 
 export const router=createBrowserRouter([
     {Component:GuestLayout,children:[{path:"/",Component:Landing},
@@ -17,7 +18,8 @@ export const router=createBrowserRouter([
     {Component:AdminLayout,children:[
         {path:"/",Component:Landing}
         ,{path:'/roles',Component:Gestionroles}
-        ,{path:'/formation',Component:GestionFormations}
+        ,{path:'/formation',Component:GestionFormations},
+        {path:'/intervenant',Component:Intervenant}
     ]}
 
 ])
