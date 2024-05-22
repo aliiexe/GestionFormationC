@@ -30,41 +30,45 @@ export default function Intervenant(){
   const[updintervenant,setupdaintevenant]=useState()
   const[update,setupdate]=useState()
   const deleteintervenant=async(id)=>{
-await axiosclient.delete('intervenants/'+id).then(()=>{
-getintervenants()
-setIsModalOpen2(true)
-}
+  await axiosclient.delete('intervenants/'+id).then(()=>{
+    getintervenants()
+    setIsModalOpen2(true)
+  }
 )
   }
-  const updateintervenant=(id)=>{
-    setupdaintevenant(id)
-    console.log(id)
-
-
-      }
-  const getintervenants=async()=>{
-    await axiosclient.get('/intervenant').then((a)=>{setintervenants(a.data); console.log(a.data)})
-  }
-  const confirmupdate=async()=>{
-    await axiosclient.put('/intervenant/'+update.id).then((a)=>{})
-    getintervenants()
-    setupdate()
-    setadress('')
-
-
-  }
+    const updateintervenant=(id)=>{
+      setupdaintevenant(id)
+      console.log(id)
+    }
+    const getintervenants=async()=>{
+      await axiosclient.get('/intervenant').then((a)=>{setintervenants(a.data); console.log(a.data)})
+    }
+    const confirmupdate=async()=>{
+      await axiosclient.put('/intervenant/'+update.id).then((a)=>{})
+      getintervenants()
+      setupdate()
+    }
 
    const columns = [
     {
-      title: 'Name',
-      dataIndex: 'nom',
+      title: 'Nom complet',
       key: 'name',
-      render: (text) => <a>{text}</a>,
+      render: (text) => <a>{text.nom}</a>,
     },
     {
-      title: 'Address',
-      dataIndex: 'adresse',
-      key: 'address',
+      title: 'Matricule',
+      key: 'name',
+      render: (text) => <a>{text.matricule}</a>,
+    },
+    {
+      title: 'Matricule',
+      key: 'name',
+      render: (text) => <a>{text.matricule}</a>,
+    },
+    {
+      title: 'Etablissement',
+      key: 'name',
+      render: (text) => <a>{text.etablissement.nom_efp}</a>,
     },
 
     {
