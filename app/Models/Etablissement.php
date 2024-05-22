@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Intervenant;
 class Etablissement extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'nom_efp',
-        'adress',
+        'adresse', // Correction de 'adress' à 'adresse'
         'tel',
         'ville',
         'status',
@@ -21,6 +21,6 @@ class Etablissement extends Model
 
     public function intervenants()
     {
-        return $this->hasMany(Intervenant::class);
+        return $this->hasMany(Intervenant::class, 'etablissements_id'); // Assurez-vous que la clé étrangère est correcte
     }
 }
