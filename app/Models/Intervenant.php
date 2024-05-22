@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Etablissement;
+use App\Models\Diplome;
+use App\Models\Certification;
+use App\Models\Competence;
 class Intervenant extends Model
 {
     use HasFactory;
@@ -14,18 +17,25 @@ class Intervenant extends Model
         'nom',
         'dateNaissance',
         'typeintervenant',
-        'etablissement_id',
+        'etablissements_id', // Assurez-vous que la table a cette colonne
         'user_id',
     ];
-    public function certficats()
+
+    public function certificats()
     {
         return $this->hasMany(Certification::class);
     }
+
     public function competences()
     {
         return $this->hasMany(Competence::class);
     }
-    public function etablissement(){
-        return $this->belongsTo(Etablissement::class,'etablissements_id');
+
+    public function etablissement()
+    {
+        return $this->belongsTo(Etablissement::class, 'etablissements_id'); // Assurez-vous que la clé étrangère est correcte
+    }
+    public function diplomes(){
+        return $this->hasOne(Diplome::class,"intervenants_id");
     }
 }
