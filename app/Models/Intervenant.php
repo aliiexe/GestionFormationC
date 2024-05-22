@@ -25,4 +25,7 @@ class Intervenant extends Model
     {
         return $this->hasMany(Competence::class);
     }
+    public function etablissements(){
+        return $this->belongsTo(Etablissement::class,'etablissements_id');
+    }
 }
