@@ -229,13 +229,14 @@ export default function Intervenant() {
                 <h3 style={{ fontSize: "20px", marginLeft: "13px", borderBottom: "2px solid green", maxWidth: 300, }}>Formations </h3>
             </Form.Item>
             <Table columns={columns} dataSource={formations} pagination={{ defaultPageSize: 6 }} />
+            
             <Form
                 labelCol={{ span: 6 }}
                 wrapperCol={{ span: 14 }}
                 layout="horizontal"
                 style={{ maxWidth: 600 }}
             >
-                <h3 style={{ fontSize: "20px", marginLeft: "13px", maxWidth: 300, borderBottom: "2px solid green", marginBottom: "40px" }}>{update ? "UPDATE" : "ADD"} intervenant</h3>
+                <h3 style={{ fontSize: "20px", marginLeft: "13px", maxWidth: 300, borderBottom: "2px solid green", marginBottom: "40px" }}>Ajouter un intervenant</h3>
                 <Form.Item label="intitule_theme" name={"intitule_theme"} rules={[{ required: true, message: "please fill needed field" }]}>
                     <Input required={true} name="intitule_theme" onChange={(e)=>setIntitule_theme(e.target.value)} />
                 </Form.Item>
