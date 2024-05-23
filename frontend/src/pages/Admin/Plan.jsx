@@ -27,13 +27,15 @@ const { TextArea } = Input;
 
 export default function Intervenant() {
     const [isModalOpen2, setIsModalOpen2] = useState(false);
-    const [formation, setFormation] = useState({});
-    const [formations, setFormations] = useState([]);
+    const [plan, sePlan] = useState({});
+    const [plans, setPlans] = useState([]);
     const [update, setUpdate] = useState();
     const [error, setError] = useState();
     const [image, setImage] = useState();
-    const [intitule_theme, setIntitule_theme] = useState();
-    const [duree_formation, setDuree_formation] = useState();
+    const [theme, setTheme] = useState();
+    const [etablissement, seEtablissement] = useState();
+    const [nbJours, setNbJours]= useState();
+    const [coutPrevisionel, setCoutPrevisionel] = useState();
     const [description, setDescription] = useState();
     const [updFormation, setUpdateFormation] = useState();
 
@@ -180,11 +182,23 @@ export default function Intervenant() {
                 ]}
                 layout="horizontal"
               >
-                <Form.Item label="intitule_theme" name={"intitule_theme"} rules={[{ required: true, message: "please fill needed field" }]}>
+                    <Form.Item label="intitule_theme" name={"intitule_theme"} rules={[{ required: true, message: "please fill needed field" }]}>
                         <Input required={true} name="intitule_theme" onChange={(e)=>setIntitule_theme(e.target.value)} />
                     </Form.Item>
                     <Form.Item label="duree_formation" name={"duree_formation"} rules={[{ required: true, message: "please fill needed field" }]}>
                         <Input required={true} type="number" name="duree_formation" onChange={(e)=>setDuree_formation(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item label="description" name={"description"} rules={[{ required: true, message: "please fill needed field" }]}>
+                        <Input required={true} name="description" onChange={(e)=>setDescription(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item label="description" name={"description"} rules={[{ required: true, message: "please fill needed field" }]}>
+                        <Input required={true} name="description" onChange={(e)=>setDescription(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item label="description" name={"description"} rules={[{ required: true, message: "please fill needed field" }]}>
+                        <Input required={true} name="description" onChange={(e)=>setDescription(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item label="description" name={"description"} rules={[{ required: true, message: "please fill needed field" }]}>
+                        <Input required={true} name="description" onChange={(e)=>setDescription(e.target.value)} />
                     </Form.Item>
                     <Form.Item label="description" name={"description"} rules={[{ required: true, message: "please fill needed field" }]}>
                         <Input required={true} name="description" onChange={(e)=>setDescription(e.target.value)} />
@@ -229,14 +243,13 @@ export default function Intervenant() {
                 <h3 style={{ fontSize: "20px", marginLeft: "13px", borderBottom: "2px solid green", maxWidth: 300, }}>Formations </h3>
             </Form.Item>
             <Table columns={columns} dataSource={formations} pagination={{ defaultPageSize: 6 }} />
-            
             <Form
                 labelCol={{ span: 6 }}
                 wrapperCol={{ span: 14 }}
                 layout="horizontal"
                 style={{ maxWidth: 600 }}
             >
-                <h3 style={{ fontSize: "20px", marginLeft: "13px", maxWidth: 300, borderBottom: "2px solid green", marginBottom: "40px" }}>Ajouter un intervenant</h3>
+                <h3 style={{ fontSize: "20px", marginLeft: "13px", maxWidth: 300, borderBottom: "2px solid green", marginBottom: "40px" }}>{update ? "UPDATE" : "ADD"} intervenant</h3>
                 <Form.Item label="intitule_theme" name={"intitule_theme"} rules={[{ required: true, message: "please fill needed field" }]}>
                     <Input required={true} name="intitule_theme" onChange={(e)=>setIntitule_theme(e.target.value)} />
                 </Form.Item>

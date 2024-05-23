@@ -22,4 +22,9 @@ class Theme extends Model
     {
         return $this->belongsTo(Domaine::class);
     }
+
+    public function plans()
+    {
+        return $this->hasMany(Plan::class);
+    }
 }
