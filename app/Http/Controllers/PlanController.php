@@ -40,7 +40,6 @@ class PlanController extends Controller
             'description' => $values['description'],
             'nbparticipants' => $values['nbparticipants'],
             'cout_previsionel' => $values['cout_previsionel'],
-            'status' => $values['status'],
             'image' => $name
         ]);
         $plan->exercice = date('Y');

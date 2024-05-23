@@ -15,6 +15,7 @@ import Certification from '../pages/Admin/Certification'
 import AffectationIC from '../pages/Admin/AffectationIC'
 
 
+import Plan from '../pages/Admin/Plan.jsx'
 
 import Formation from '../pages/Admin/Formation.jsx'
 import PassReset from '../pages/PassReset/PassReset.jsx'
@@ -42,7 +43,8 @@ export const router=createBrowserRouter([
         {path:'/certifications',Component:Certification},
         {path:'/competences',Component:Competence},
         {path:'/affectations',Component:AffectationIC},
-        {path:'/dashboard',Component:Dashboard}
+        {path:'/dashboard',Component:Dashboard},
+        {path:'/plan',Component:Plan}
     ]}
 
 ])
