@@ -13,6 +13,7 @@ import Region from '../pages/Admin/Region'
 import Intervenant from '../pages/Admin/Intervenant.jsx'
 import Etablissement from '../pages/Admin/Etablissement.jsx'
 import Domaine from '../pages/Admin/Domaine'
+import Plan from '../pages/Admin/Plan.jsx'
 
 import Formation from '../pages/Admin/Formation.jsx'
 import PassReset from '../pages/PassReset/PassReset.jsx'
@@ -38,7 +39,8 @@ export const router=createBrowserRouter([
         {path:'/regions',Component:Region},
         {path:'/etablissement',Component:Etablissement},
         {path:'/domaines',Component:Domaine},
-        {path:'/dashboard',Component:Dashboard}
+        {path:'/dashboard',Component:Dashboard},
+        {path:'/plan',Component:Plan}
     ]}
 
 ])
