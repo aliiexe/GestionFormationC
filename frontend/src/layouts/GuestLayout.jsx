@@ -16,6 +16,7 @@ export default function GuestLayout(){
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const location=useLocation();
 useEffect(()=>{
+  axiosclient.get('sanctum/csrf-cookie')
   axiosclient.get('/api/user').then((a)=>{
 setuser(a.data)
   })
