@@ -36,7 +36,7 @@ export default function AdminLayout(){
         getItem(<Link to="/dashboard">Dashboard</Link>, '1', <PieChartOutlined style={{"paddingTop":"0px !important"}}/>),
         getItem(<Link to="/intervenant">Intervenant</Link>, '2', <TeamOutlined />),
         getItem(<Link to="/formation">Formations</Link>, '3', <ShopOutlined />),
-        getItem(<Link to="/formation">Formations</Link>, '4', <ShopOutlined />),
+        getItem(<Link to="/plan">Plan</Link>, '4', <DollarOutlined />),
     ];
 
     
