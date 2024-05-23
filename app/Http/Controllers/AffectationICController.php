@@ -4,78 +4,63 @@ namespace App\Http\Controllers;
 
 use App\Models\AffectationIC;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AffectationICController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+    // Afficher toutes les affectations IC
     public function index()
     {
-        $affectations = AffectationIC::with(['intervenant', 'competence', 'certification'])->get();
-        return response()->json($affectations);
+        return AffectationIC::with('intervenant', 'competence', 'certification')->paginate(10);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    // Afficher une affectation IC spécifique
+    public function show($id)
+    {
+        return AffectationIC::with('intervenant', 'competence', 'certification')->findOrFail($id);
+    }
+
+    // Créer une nouvelle affectation IC
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'intervenants_id' => 'required|exists:intervenants,id',
-            'competences_id' => 'required|exists:competences,id',
-            'certifications_id' => 'required|exists:certifications,id',
+        $validator = Validator::make($request->all(), [
+            'intervenants_id' => 'required|integer',
+            'competences_id' => 'required|integer',
+            'certifications_id' => 'required|integer',
         ]);
 
-        $affectation = AffectationIC::create($validatedData);
-        return response()->json($affectation, 201);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        return AffectationIC::create($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\AffectationIC  $affectationIC
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show(AffectationIC $affectationIC)
+    // Mettre à jour une affectation IC existante
+    public function update(Request $request, $id)
     {
-        $affectationIC->load(['intervenant', 'competence', 'certification']);
-        return response()->json($affectationIC);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AffectationIC  $affectationIC
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(Request $request, AffectationIC $affectationIC)
-    {
-        $validatedData = $request->validate([
-            'intervenants_id' => 'required|exists:intervenants,id',
-            'competences_id' => 'required|exists:competences,id',
-            'certifications_id' => 'required|exists:certifications,id',
+        $validator = Validator::make($request->all(), [
+            'intervenants_id' => 'required|integer',
+            'competences_id' => 'required|integer',
+            'certifications_id' => 'required|integer',
         ]);
 
-        $affectationIC->update($validatedData);
-        return response()->json($affectationIC);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $affectation = AffectationIC::findOrFail($id);
+        $affectation->update($request->all());
+
+        return $affectation;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\AffectationIC  $affectationIC
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(AffectationIC $affectationIC)
+    // Supprimer une affectation IC existante
+    public function destroy($id)
     {
-        $affectationIC->delete();
+        $affectation = AffectationIC::findOrFail($id);
+        $affectation->delete();
+
         return response()->json(null, 204);
     }
 }
