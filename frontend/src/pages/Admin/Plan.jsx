@@ -215,10 +215,10 @@ export default function Plan() {
                         <Form.Item label="Image">
                             <img style={{ width: "50%" }} src={"images/" + updPlan?.image} alt="" />
                         </Form.Item>
-                        <Form.Item 
-                            label="Image" 
-                            valuePropName="fileList" 
-                            getValueFromEvent={normFile}  
+                        <Form.Item
+                            label="Image"
+                            valuePropName="fileList"
+                            getValueFromEvent={normFile}
                             name="image"
                         >
                             <Upload beforeUpload={() => false} maxCount={1} listType="picture-card">

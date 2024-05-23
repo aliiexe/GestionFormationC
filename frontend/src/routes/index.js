@@ -12,6 +12,7 @@ import Intervenant from '../pages/Admin/Intervenant.jsx'
 import Etablissement from '../pages/Admin/Etablissement.jsx'
 import Domaine from '../pages/Admin/Domaine'
 import Certification from '../pages/Admin/Certification'
+
 import AffectationIC from '../pages/Admin/AffectationIC'
 
 

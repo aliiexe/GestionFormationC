@@ -8,7 +8,7 @@ import {
     PieChartOutlined,
     TeamOutlined,
     UserOutlined,
-    PoweroffOutlined 
+    PoweroffOutlined
   } from '@ant-design/icons';
 
   import { Breadcrumb, Layout, Menu, theme } from 'antd';
@@ -24,11 +24,11 @@ export default function AdminLayout(){
         if(a.status!=200 && a.status !=204){
           navigate('/Login')
         }
-   
+
           if(a.data.email !="ofppt@gmail.com"){
             navigate('/Login')
           }
-        
+
       }).catch(err=>{
         navigate('/Login')
       })
@@ -52,12 +52,18 @@ export default function AdminLayout(){
         getItem(<Link to="/intervenant">Intervenant</Link>, '2', <TeamOutlined />),
         getItem(<Link to="/formation">Formations</Link>, '3', <ShopOutlined />),
         getItem(<Link to="/plan">Plan</Link>, '4', <DollarOutlined />),
+        getItem(<Link to="/certifications">Certifications</Link>, '5'),
+        getItem(<Link to="/competences">Compétences</Link>, '6'),
+        getItem(<Link to="/affectations">Affectation</Link>, '7'),
+        getItem(<Link to="/etablissement">Etablissements</Link>, '8'),
+
+
     ];
 
-    
-    
+
+
     return(
-     
+
         <>
     <Layout
       style={{
@@ -115,7 +121,7 @@ export default function AdminLayout(){
         </Footer> */}
       </Layout>
     </Layout>
-     
+
         </>
     )
 }
