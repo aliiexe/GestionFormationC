@@ -14,7 +14,7 @@ const stats = [
   
   export default function About() {
     return (
-      <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
+      <div className="relative isolate overflow-hidden pb-24 py-24 sm:py-32 sm:pb-24">
         
         <div
           className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
@@ -42,13 +42,13 @@ const stats = [
         </div>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Bienvenue à la plateforme de formation continue</h2>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
+            <h2 className="text-4xl font-bold tracking-tight text-black sm:text-6xl text-black">Bienvenue à la plateforme de formation continue</h2>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
             Cherchiez vous à améliorer vos compétences dans un domaine spécifique ou à explorer un nouveau domaine ? L&apos;office de formation professionel et de la promotion de travail propose une variété de programmes de formation continue.
             </p>
           </div>
           <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
+            <div className="grid grid-cols-1 gap-x-8 text-black gap-y-6 text-base font-semibold leading-7 text-black sm:grid-cols-2 md:flex lg:gap-x-10">
               {links.map((link) => (
                 <a key={link.name} href={link.href}>
                   {link.name} <span aria-hidden="true">&rarr;</span>
@@ -58,8 +58,8 @@ const stats = [
             <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
               {stats.map((stat) => (
                 <div key={stat.name} className="flex flex-col-reverse">
-                  <dt className="text-base leading-7 text-gray-300">{stat.name}</dt>
-                  <dd className="text-2xl font-bold leading-9 tracking-tight text-white">{stat.value}</dd>
+                  <dt className="text-base leading-7 text-gray-500">{stat.name}</dt>
+                  <dd className="text-2xl font-bold leading-9 tracking-tight text-gray-600">{stat.value}</dd>
                 </div>
               ))}
             </dl>
