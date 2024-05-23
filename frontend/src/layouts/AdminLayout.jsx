@@ -12,12 +12,27 @@ import {
   } from '@ant-design/icons';
 
   import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { axiosclient } from "../api/axiosClient";
   const { Header, Content, Footer, Sider } = Layout;
 
 export default function AdminLayout(){
     const location=useLocation()
     const navigate=useNavigate()
-
+    useEffect(()=>{
+      axiosclient.get('/api/user').then((a)=>{
+        console.log(a.status)
+        if(a.status!=200 && a.status !=204){
+          navigate('/Login')
+        }
+   
+          if(a.data.email !="ofppt@gmail.com"){
+            navigate('/Login')
+          }
+        
+      }).catch(err=>{
+        navigate('/Login')
+      })
+    },[])
     const [collapsed, setCollapsed] = useState(false);
     const {
       token: { colorBgContainer, borderRadiusLG },
