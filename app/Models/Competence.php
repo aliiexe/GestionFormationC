@@ -11,5 +11,10 @@ class Competence extends Model
 
     protected $fillable = [
         'libelle',
+        'description'
     ];
+    public function affectations()
+    {
+        return $this->hasMany(AffectationIC::class, 'certifications_id');
+    }
 }

@@ -7,22 +7,25 @@ import Login from '../pages/Login/login'
 import Recuperation from '../pages/Recuperation.jsx'
 import Gestionroles from '../components/Roles/GestionRoles.jsx'
 import GestionFormations from '../Formation/GestionFormations.jsx'
-import competences from '../components/Admin/Competences'
-import Certification from '../components/Admin/Certification'
 import Region from '../pages/Admin/Region'
 import Intervenant from '../pages/Admin/Intervenant.jsx'
 import Etablissement from '../pages/Admin/Etablissement.jsx'
 import Domaine from '../pages/Admin/Domaine'
+import Certification from '../pages/Admin/Certification'
+import AffectationIC from '../pages/Admin/AffectationIC'
+
+
 
 import PassReset from '../pages/PassReset/PassReset.jsx'
+import Competence from '../pages/Admin/Competence'
 
 export const router=createBrowserRouter([
     {Component:GuestLayout,children:[{path:"/",Component:Landing},
       {path:'/Register',Component:SignUp },
       {path:'/Login',Component:Login},
     {path:'/recupere',Component:Recuperation},
-    {path:'/competences',Component:competences},
-    {path:'/certifications',Component:Certification},
+
+
 
     {path:'/reset',Component:PassReset},
 ]}
@@ -36,7 +39,10 @@ export const router=createBrowserRouter([
         {path:'/intervenant',Component:Intervenant},
         {path:'/regions',Component:Region},
         {path:'/etablissement',Component:Etablissement},
-        {path:'/domaines',Component:Domaine}
+        {path:'/domaines',Component:Domaine},
+        {path:'/certifications',Component:Certification},
+        {path:'/competences',Component:Competence},
+        {path:'/affectations',Component:AffectationIC},
     ]}
 
 ])

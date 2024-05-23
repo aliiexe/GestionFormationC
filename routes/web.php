@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AffectationICController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\DiplomeController;
@@ -12,6 +11,8 @@ use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\DomaineController;
 use App\Http\Controllers\RegionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AffectationICController;
+
 
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
@@ -26,8 +27,9 @@ Route::resource('role',RoleController::class);
 Route::resource('formation',FormationController::class);
 Route::resource('certifications',CertificationController::class);
 Route::resource('domaines',DomaineController::class);
-Route::resource('competence',CompetenceController::class);
+Route::resource('competences',CompetenceController::class);
 Route::resource('affectation',AffectationICController::class);
 Route::post('password/email', [PasswordResetLinkController::class,'store'])->name('password.email');
 Route::resource('regions', RegionController::class);
 Route::resource('etablissements', EtablissementController::class);
+Route::resource('affectations', AffectationICController::class);

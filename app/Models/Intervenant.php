@@ -38,4 +38,8 @@ class Intervenant extends Model
     public function diplomes(){
         return $this->hasOne(Diplome::class,"intervenants_id");
     }
+    public function affectations()
+    {
+        return $this->hasMany(AffectationIC::class, 'certifications_id');
+    }
 }
