@@ -123,6 +123,7 @@ const AffectationIC = () => {
     },
     {
       title: 'Action',
+      
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
