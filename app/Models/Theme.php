@@ -13,6 +13,18 @@ class Theme extends Model
         'intitule_theme',
         'duree_formation',
         'status',
-        'domaines_id'
+        'domaines_id',
+        'image',
+        'description'
     ];
+
+    public function domaines()
+    {
+        return $this->belongsTo(Domaine::class);
+    }
+
+    public function plans()
+    {
+        return $this->hasMany(Plan::class);
+    }
 }

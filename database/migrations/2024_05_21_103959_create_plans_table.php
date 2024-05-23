@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreign('etablissements_id')->references('id')->on('etablissements')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('exercice');
             $table->integer('nbjours');
+            $table->string('image')->nullable();
+            $table->string('description')->nullable();
             $table->integer('nbparticipants');
             $table->float('cout_previsionel');
             $table->integer('status')->nullable();

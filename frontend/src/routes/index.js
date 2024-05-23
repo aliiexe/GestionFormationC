@@ -16,18 +16,17 @@ import AffectationIC from '../pages/Admin/AffectationIC'
 
 
 
+import Formation from '../pages/Admin/Formation.jsx'
 import PassReset from '../pages/PassReset/PassReset.jsx'
 import Competence from '../pages/Admin/Competence'
+import Dashboard from '../pages/Admin/Dashboard.jsx'
 
 export const router=createBrowserRouter([
     {Component:GuestLayout,children:[{path:"/",Component:Landing},
       {path:'/Register',Component:SignUp },
       {path:'/Login',Component:Login},
     {path:'/recupere',Component:Recuperation},
-
-
-
-    {path:'/reset',Component:PassReset},
+      {path:'/reset',Component:PassReset}
 ]}
 
 
@@ -35,7 +34,7 @@ export const router=createBrowserRouter([
     {Component:AdminLayout,children:[
         {path:"/",Component:Landing}
         ,{path:'/roles',Component:Gestionroles}
-        ,{path:'/formation',Component:GestionFormations},
+        ,{path:'/formation',Component:Formation},
         {path:'/intervenant',Component:Intervenant},
         {path:'/regions',Component:Region},
         {path:'/etablissement',Component:Etablissement},
@@ -43,6 +42,7 @@ export const router=createBrowserRouter([
         {path:'/certifications',Component:Certification},
         {path:'/competences',Component:Competence},
         {path:'/affectations',Component:AffectationIC},
+        {path:'/dashboard',Component:Dashboard}
     ]}
 
 ])

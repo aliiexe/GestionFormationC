@@ -33,3 +33,4 @@ Route::post('password/email', [PasswordResetLinkController::class,'store'])->nam
 Route::resource('regions', RegionController::class);
 Route::resource('etablissements', EtablissementController::class);
 Route::resource('affectations', AffectationICController::class);
+Route::post('updateImage',[FormationController::class,'updateImage']);
