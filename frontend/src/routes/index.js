@@ -21,11 +21,13 @@ import Formation from '../pages/Admin/Formation.jsx'
 import PassReset from '../pages/PassReset/PassReset.jsx'
 import Competence from '../pages/Admin/Competence'
 import Dashboard from '../pages/Admin/Dashboard.jsx'
+import Formations from '../pages/Formations.jsx'
 
 export const router=createBrowserRouter([
     {Component:GuestLayout,children:[{path:"/",Component:Landing},
       {path:'/Register',Component:SignUp },
       {path:'/Login',Component:Login},
+      {path:'/Formations',Component:Formations},,
     {path:'/recupere',Component:Recuperation},
       {path:'/reset',Component:PassReset}
 ]}
