@@ -22,7 +22,7 @@ export const router=createBrowserRouter([
     {path:'/recupere',Component:Recuperation},
     {path:'/competences',Component:competences},
     {path:'/certifications',Component:Certification},
-
+    {path:'/password-reset/:token',Component:Recuperation},
     {path:'/reset',Component:PassReset},
 ]}
 
