@@ -32,4 +32,6 @@ Route::resource('affectation',AffectationICController::class);
 Route::post('password/email', [PasswordResetLinkController::class,'store'])->name('password.email');
 Route::resource('regions', RegionController::class);
 Route::resource('etablissements', EtablissementController::class);
+Route::post('updateImage',[FormationController::class,'updateImage']);
+
 Route::post('/reseter', [reseter::class,'reseter']);

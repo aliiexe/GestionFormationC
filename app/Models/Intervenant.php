@@ -19,6 +19,7 @@ class Intervenant extends Model
         'typeintervenant',
         'etablissements_id', // Assurez-vous que la table a cette colonne
         'user_id',
+        'image',
     ];
 
     public function certificats()

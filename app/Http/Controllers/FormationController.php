@@ -13,7 +13,7 @@ class FormationController extends Controller
      */
     public function index()
     {
-        return response()->json(Theme::all());
+        return response()->json(Theme::with('domaines')->get());
     }
 
     /**
@@ -29,12 +29,34 @@ class FormationController extends Controller
      */
     public function store(Request $request)
     {
-        $formation = new Theme();
-        $formation->intitule_theme = $request->intitule_theme;
-        $formation->duree_formation = $request->duree_formation;
-        $formation->status = $request->status;
-        $formation->domaines_id = $request->domaines_id;
+        // return response()->json($request->file('image')->getClientOriginalName());
+        $values = $request->all();
+        $image = $request->file('image');
+        $name = date('YmdHis').'.'.$image->getClientOriginalExtension();
+        $image->move('../frontend/public/images',$name);
+        $formation = new Theme([
+            'intitule_theme' => $values['intitule_theme'],
+            'duree_formation' => $values['duree_formation'],
+            'description' => $values['description'],
+            'image' => $name
+        ]);
+        $formation->domaines_id = 1;
         $formation->save();
+    }
+
+    public function updateImage(Request $request) {
+        return response()->json($request->all());
+        $values=$request->all();
+        $formation=Theme::find($request->id);
+        if($image=$request->file('image')){
+            $name = date('YmdHis').'.'.$image->getClientOriginalExtension();
+            $image->move('../frontend/public/images',$name);
+            $values['image']=$name;
+        }
+        $formation->update($values);
+
+        return response()->json($request->all());
+
     }
 
     /**
