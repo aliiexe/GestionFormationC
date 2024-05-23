@@ -15,6 +15,6 @@ class Competence extends Model
     ];
     public function affectations()
     {
-        return $this->hasMany(AffectationIC::class, 'certifications_id');
+        return $this->hasMany(AffectationIC::class);
     }
 }

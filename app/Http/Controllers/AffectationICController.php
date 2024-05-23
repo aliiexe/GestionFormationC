@@ -26,18 +26,14 @@ class AffectationICController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'intervenant_id' => 'required|exists:intervenants,id',
-            'competence_id' => 'required|exists:competences,id',
+        $validatedData = $request->validate([
+            'intervenants_id' => 'required|exists:intervenants,id',
+            'competences_id' => 'required|exists:competences,id',
             'certifications_id' => 'required|exists:certifications,id',
         ]);
 
-        $affectation = AffectationIC::create($request->all());
-
-        return response()->json([
-            'message' => 'Affectation créée avec succès.',
-            'affectation' => $affectation
-        ], 201);
+        $affectation = AffectationIC::create($validatedData);
+        return response()->json($affectation, 201);
     }
 
     /**
@@ -48,7 +44,8 @@ class AffectationICController extends Controller
      */
     public function show(AffectationIC $affectationIC)
     {
-        return response()->json($affectationIC->load(['intervenant', 'competence', 'certification']));
+        $affectationIC->load(['intervenant', 'competence', 'certification']);
+        return response()->json($affectationIC);
     }
 
     /**
@@ -60,18 +57,14 @@ class AffectationICController extends Controller
      */
     public function update(Request $request, AffectationIC $affectationIC)
     {
-        $request->validate([
-            'intervenant_id' => 'required|exists:intervenants,id',
-            'competence_id' => 'required|exists:competences,id',
+        $validatedData = $request->validate([
+            'intervenants_id' => 'required|exists:intervenants,id',
+            'competences_id' => 'required|exists:competences,id',
             'certifications_id' => 'required|exists:certifications,id',
         ]);
 
-        $affectationIC->update($request->all());
-
-        return response()->json([
-            'message' => 'Affectation mise à jour avec succès.',
-            'affectation' => $affectationIC
-        ]);
+        $affectationIC->update($validatedData);
+        return response()->json($affectationIC);
     }
 
     /**
@@ -83,9 +76,6 @@ class AffectationICController extends Controller
     public function destroy(AffectationIC $affectationIC)
     {
         $affectationIC->delete();
-
-        return response()->json([
-            'message' => 'Affectation supprimée avec succès.'
-        ]);
+        return response()->json(null, 204);
     }
 }

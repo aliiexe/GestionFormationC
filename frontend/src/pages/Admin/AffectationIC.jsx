@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Button, Form, Input, Select, Modal, Table, Space } from 'antd';
-import { PlusOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { Table, Space, Modal, Form, Input, Button, Select } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { axiosclient } from "../../api/axiosClient";
 
 const { Option } = Select;
 
-export default function AffectationIC() {
+const AffectationIC = () => {
   const [affectations, setAffectations] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -23,37 +23,37 @@ export default function AffectationIC() {
 
   const fetchAffectations = async () => {
     try {
-      const response = await axiosclient.get("/affectations");
+      const response = await axiosclient.get('affectations');
       setAffectations(response.data);
     } catch (error) {
-      console.error("Erreur lors de la récupération des affectations :", error);
+      console.error('Erreur lors de la récupération des affectations :', error);
     }
   };
 
   const fetchIntervenants = async () => {
     try {
-      const response = await axiosclient.get("/intervenant");
+      const response = await axiosclient.get('/intervenant');
       setIntervenants(response.data);
     } catch (error) {
-      console.error("Erreur lors de la récupération des intervenants :", error);
+      console.error('Erreur lors de la récupération des intervenants :', error);
     }
   };
 
   const fetchCompetences = async () => {
     try {
-      const response = await axiosclient.get("/competences");
+      const response = await axiosclient.get('/competences');
       setCompetences(response.data);
     } catch (error) {
-      console.error("Erreur lors de la récupération des compétences :", error);
+      console.error('Erreur lors de la récupération des compétences :', error);
     }
   };
 
   const fetchCertifications = async () => {
     try {
-      const response = await axiosclient.get("/certifications");
+      const response = await axiosclient.get('/certifications');
       setCertifications(response.data);
     } catch (error) {
-      console.error("Erreur lors de la récupération des certifications :", error);
+      console.error('Erreur lors de la récupération des certifications :', error);
     }
   };
 
@@ -67,10 +67,9 @@ export default function AffectationIC() {
     setIsModalVisible(true);
     setSelectedAffectation(affectation);
     form.setFieldsValue({
-      ...affectation,
-      intervenant_id: affectation.intervenant?.id,
-      competence_id: affectation.competence?.id,
-      certifications_id: affectation.certification?.id,
+      intervenants_id: affectation.intervenants_id,
+      competences_id: affectation.competences_id,
+      certifications_id: affectation.certifications_id,
     });
   };
 
@@ -84,9 +83,9 @@ export default function AffectationIC() {
     try {
       const values = await form.validateFields();
       if (selectedAffectation) {
-        await axiosclient.put(`/affectations/${selectedAffectation.id}`, values);
+        await axiosclient.put(`/affectations/${selectedAffectation.id}`, values).then(a=>console.log(a))
       } else {
-        await axiosclient.post("/affectations", values);
+        await axiosclient.post('/affectations', values);
       }
       fetchAffectations();
       setIsModalVisible(false);
@@ -102,7 +101,7 @@ export default function AffectationIC() {
       await axiosclient.delete(`/affectations/${id}`);
       fetchAffectations();
     } catch (error) {
-      console.error("Erreur lors de la suppression de l'affectation :", error);
+      console.error('Erreur lors de la suppression de l\'affectation :', error);
     }
   };
 
@@ -110,77 +109,96 @@ export default function AffectationIC() {
     {
       title: 'Intervenant',
       dataIndex: ['intervenant', 'nom'],
-      key: 'intervenant',
+      key: 'intervenants',
     },
     {
       title: 'Compétence',
       dataIndex: ['competence', 'libelle'],
-      key: 'competence',
+      key: 'competences',
     },
     {
       title: 'Certification',
       dataIndex: ['certification', 'intitule_certification'],
-      key: 'certification',
+      key: 'certifications',
     },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <a onClick={() => showEditModal(record)}><EditOutlined /></a>
-          <a onClick={() => deleteAffectation(record.id)}><DeleteOutlined /></a>
+          <a onClick={() => showEditModal(record)}>
+            <EditOutlined />
+          </a>
+          <a onClick={() => deleteAffectation(record.id)}>
+            <DeleteOutlined />
+          </a>
         </Space>
       ),
     },
   ];
 
   return (
-    <>
-      <Button type="primary" icon={<PlusOutlined />} onClick={showModal} style={{ marginBottom: "1rem" }}>Ajouter Affectation</Button>
-      <Table columns={columns} dataSource={affectations} rowKey="id" />
+    <div>
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={showModal}
+        style={{ marginBottom: '1rem' }}
+      >
+        Ajouter Affectation
+      </Button>
+      <Table columns={columns} dataSource={affectations} />
 
       <Modal
-        title={selectedAffectation ? "Modifier Affectation" : "Ajouter Affectation"}
+        title={selectedAffectation ? 'Modifier Affectation' : 'Ajouter Affectation'}
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >
         <Form form={form} layout="vertical">
           <Form.Item
-            name="intervenant_id"
+            name="intervenants_id"
             label="Intervenant"
-            rules={[{ required: true, message: "Veuillez sélectionner un intervenant" }]}
+            rules={[{ required: true, message: 'Veuillez sélectionner un intervenant' }]}
           >
-            <Select placeholder="Sélectionnez un intervenant">
-              {intervenants.map((intervenant) => (
-                <Option key={intervenant.id} value={intervenant.id}>{intervenant.nom}</Option>
+            <Select>
+              {intervenants.map(intervenant => (
+                <Option key={intervenant.id} value={intervenant.id}>
+                  {intervenant.nom}
+                </Option>
               ))}
             </Select>
           </Form.Item>
           <Form.Item
-            name="competence_id"
+            name="competences_id"
             label="Compétence"
-            rules={[{ required: true, message: "Veuillez sélectionner une compétence" }]}
+            rules={[{ required: true, message: 'Veuillez sélectionner une compétence' }]}
           >
-            <Select placeholder="Sélectionnez une compétence">
-              {competences.map((competence) => (
-                <Option key={competence.id} value={competence.id}>{competence.libelle}</Option>
+            <Select>
+              {competences.map(competence => (
+                <Option key={competence.id} value={competence.id}>
+                  {competence.libelle}
+                </Option>
               ))}
             </Select>
           </Form.Item>
           <Form.Item
             name="certifications_id"
             label="Certification"
-            rules={[{ required: true, message: "Veuillez sélectionner une certification" }]}
+            rules={[{ required: true, message: 'Veuillez sélectionner une certification' }]}
           >
-            <Select placeholder="Sélectionnez une certification">
-              {certifications.map((certification) => (
-                <Option key={certification.id} value={certification.id}>{certification.intitule_certification}</Option>
+            <Select>
+              {certifications.map(certification => (
+                <Option key={certification.id} value={certification.id}>
+                  {certification.intitule_certification}
+                </Option>
               ))}
             </Select>
           </Form.Item>
         </Form>
       </Modal>
-    </>
+    </div>
   );
-}
+};
+
+export default AffectationIC;

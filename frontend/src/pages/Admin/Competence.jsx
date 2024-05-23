@@ -61,6 +61,8 @@ const Competence = () => {
     try {
       await axiosclient.delete(`/competences/${id}`);
       fetchCompetences();
+      
+
     } catch (error) {
       console.error('Erreur lors de la suppression de la compétence :', error);
     }
