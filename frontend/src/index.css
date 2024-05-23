@@ -1,6 +1,31 @@
 @import "primereact/resources/themes/lara-light-cyan/theme.css";
 @import 'primeicons/primeicons.css';
-
+.slick-prev {
+    left: 3% !important;
+    z-index: 1;
+    background-color:"black"
+  }
+  .slick-next {
+    right: 3% !important;
+    z-index: 1;
+    color:"black !important"
+  }
+  .slick-next:before {
+    color: black;
+ 
+}
+.slick-track {
+    margin-left: 10%;
+}
+.carousel-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+.slick-prev:before {
+    color: black !important;
+ 
+}
 body{
     margin: 0;
     margin: 0;

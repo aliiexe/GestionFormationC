@@ -23,10 +23,11 @@ export const router=createBrowserRouter([
     {Component:GuestLayout,children:[{path:"/",Component:Landing},
       {path:'/Register',Component:SignUp },
       {path:'/Login',Component:Login},
-      {path:'/recupere',Component:Recuperation},
-      {path:'/competences',Component:competences},
-      {path:'/certifications',Component:Certification},
-      {path:'/reset',Component:PassReset}
+    {path:'/recupere',Component:Recuperation},
+    {path:'/competences',Component:competences},
+    {path:'/certifications',Component:Certification},
+    {path:'/password-reset/:token',Component:Recuperation},
+    {path:'/reset',Component:PassReset},
 ]}
 
 

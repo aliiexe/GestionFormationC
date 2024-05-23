@@ -95,14 +95,14 @@ export default function Intervenant() {
         formData.append('intitule_theme', values.intitule_theme);
         formData.append('duree_formation', values.duree_formation);
         formData.append('description', values.description);       
-        formData.append('image', values.image);
+        formData.append('image', values.image.originFileObj);
         axiosclient.post('/updateImage',formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
         },
         }).then((a)=>{
           console.log(a.data);
-          setOpenEdit(false);
+          
       })
     };
 

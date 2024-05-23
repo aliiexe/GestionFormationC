@@ -30,6 +30,7 @@ class PlanController extends Controller
     public function store(Request $request)
     {
         $values = $request->all();
+   
         $image = $request->file('image');
         $name = date('YmdHis').'.'.$image->getClientOriginalExtension();
         $image->move('../frontend/public/images',$name);
