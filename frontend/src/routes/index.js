@@ -17,12 +17,14 @@ import Plan from '../pages/Admin/Plan.jsx'
 import Formation from '../pages/Admin/Formation.jsx'
 import PassReset from '../pages/PassReset/PassReset.jsx'
 import Dashboard from '../pages/Admin/Dashboard.jsx'
+import Formations from '../pages/Formations.jsx'
 import Actions from '../pages/Entreprise/Actions.jsx'
 
 export const router=createBrowserRouter([
     {Component:GuestLayout,children:[{path:"/",Component:Landing},
       {path:'/Register',Component:SignUp },
       {path:'/Login',Component:Login},
+      {path:'/Formations',Component:Formations},
     {path:'/recupere',Component:Recuperation},
     {path:'/competences',Component:competences},
     {path:'/actions',Component:Actions},

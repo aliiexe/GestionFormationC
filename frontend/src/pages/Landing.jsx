@@ -86,12 +86,12 @@ export default function Landing() {
                         <br></br><span className="text-l text-slate-900">web developement</span>
                     </p>
                 </div>
-                <a href="#" className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                <Link to={"/Formations"}  className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                     <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M14.707 10.707a1 1 0 0 0-1.414-1.414L10 12.586 7.707 10.293a1 1 0 0 0-1.414 1.414l3 3a1 1 0 0 0 1.414 0l5-5z" />
                     </svg>
-                    Voir plus
-                </a>
+               Voir plus
+                </Link>
             </div>
         </div>
         <div key={2} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
@@ -109,12 +109,12 @@ export default function Landing() {
                         <br></br> <span className="text-l text-slate-900">entrepreunariat</span>
                     </p>
                 </div>
-                <a href="#" className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                <Link to={"/Formations"}  href="#" className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                     <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M14.707 10.707a1 1 0 0 0-1.414-1.414L10 12.586 7.707 10.293a1 1 0 0 0-1.414 1.414l3 3a1 1 0 0 0 1.414 0l5-5z" />
                     </svg>
-                    Voir plus
-                </a>
+                 Voir plus
+                </Link>
             </div>
         </div>
         <div key={3} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
@@ -132,12 +132,12 @@ export default function Landing() {
                         <br></br><span className="text-l text-slate-900">Soft skills</span>
                     </p>
                 </div>
-                <a href="#" className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                <Link to={"/Formations"} className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                     <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M14.707 10.707a1 1 0 0 0-1.414-1.414L10 12.586 7.707 10.293a1 1 0 0 0-1.414 1.414l3 3a1 1 0 0 0 1.414 0l5-5z" />
                     </svg>
                     Voir plus
-                </a>
+                </Link>
             </div>
         </div>
         <Sponsors />

@@ -50,9 +50,6 @@ const formFields = [
   });
   const navigate=useNavigate()
 
-
-
-  
   const onSubmit=(e)=>{
     console.log(e);
     axiosclient.post('/reseter',{email:email,password:e.password}).then(a=>console.log(a))
@@ -87,7 +84,7 @@ return (
          
         </div>
       ))}
-      <input type="submit" value="Se connecter" />
+      <input type="submit" value="Reinitialiser" />
       <div style={{"textAlign":"center","textDecoration":"underline"}}><Link to={"/register"}>Create account</Link></div>
       <div style={{"textAlign":"center","textDecoration":"underline"}}><div onClick={()=>{setopenmodel(true)
       }}>mot de passe oublié?</div></div>

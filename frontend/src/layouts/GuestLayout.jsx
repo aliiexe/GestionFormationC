@@ -5,11 +5,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { axiosclient } from '../api/axiosClient'
 import {Link} from 'react-router-dom'
 import './GUEST.css'
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard' },
-  { name: 'Espace office', href: '#' },
 
-]
 
 export default function GuestLayout(){
   const [user,setuser]=useState()
@@ -53,11 +49,11 @@ const logout=()=>{
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             <a className={"text-sm font-semibold leading-6 text-gray-900"}><Link to={"/"}>Acceuil</Link></a>
-            {navigation.map((item) => (
-              <a key={item.name} href={item.href} className={"text-sm font-semibold leading-6 text-gray-900"}>
-                {item.name}
-              </a>
-            ))}
+        
+              <Link key={1} to="/formation" className={"text-sm font-semibold leading-6 text-gray-900"}>
+              Formations
+              </Link>
+
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
    
@@ -111,19 +107,29 @@ const logout=()=>{
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
+           
+                    <Link
+              onClick={() => setMobileMenuOpen(false)}
+                      key={1}
+                     to="/"
                       className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     >
-                      {item.name}
-                    </a>
-                  ))}
+                      Acceuil
+                    </Link>
+                    <Link
+                    onClick={()=>setMobileMenuOpen(false)}
+                      key={2}
+                      to="/formations"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                     Formation
+                    </Link>
+
                 </div>
                 <div className="py-6">
                   <Link
-                   to={'/login'}
+                  onClick={()=>setMobileMenuOpen(false)}
+                   to={'/Login'}
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Se connecter
