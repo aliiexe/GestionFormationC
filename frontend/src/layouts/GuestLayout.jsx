@@ -6,7 +6,7 @@ import { axiosclient } from '../api/axiosClient'
 import {Link} from 'react-router-dom'
 import './GUEST.css'
 const navigation = [
-  { name: 'Espace entreprise', href: '#' },
+  { name: 'Dashboard', href: '/dashboard' },
   { name: 'Espace office', href: '#' },
 
 ]

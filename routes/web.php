@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AffectationICController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\CompetenceController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\IntervenantController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\DomaineController;
+use App\Http\Controllers\EntrepriseController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\reseter;
@@ -36,5 +38,6 @@ Route::post('password/email', [PasswordResetLinkController::class,'store'])->nam
 Route::resource('regions', RegionController::class);
 Route::resource('etablissements', EtablissementController::class);
 Route::post('updateImage',[FormationController::class,'updateImage']);
-
+Route::resource('action',ActionController::class);
 Route::post('/reseter', [reseter::class,'reseter']);
+Route::resource('entreprise',EntrepriseController::class);

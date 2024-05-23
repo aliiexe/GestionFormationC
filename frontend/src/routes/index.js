@@ -6,7 +6,6 @@ import SignUp from '../pages/SignUp/SignUp.jsx'
 import Login from '../pages/Login/login'
 import Recuperation from '../pages/Recuperation.jsx'
 import Gestionroles from '../components/Roles/GestionRoles.jsx'
-import GestionFormations from '../Formation/GestionFormations.jsx'
 import competences from '../components/Admin/Competences'
 import Certification from '../components/Admin/Certification'
 import Region from '../pages/Admin/Region'
@@ -18,6 +17,7 @@ import Plan from '../pages/Admin/Plan.jsx'
 import Formation from '../pages/Admin/Formation.jsx'
 import PassReset from '../pages/PassReset/PassReset.jsx'
 import Dashboard from '../pages/Admin/Dashboard.jsx'
+import Actions from '../pages/Entreprise/Actions.jsx'
 
 export const router=createBrowserRouter([
     {Component:GuestLayout,children:[{path:"/",Component:Landing},
@@ -25,12 +25,11 @@ export const router=createBrowserRouter([
       {path:'/Login',Component:Login},
     {path:'/recupere',Component:Recuperation},
     {path:'/competences',Component:competences},
+    {path:'/actions',Component:Actions},
     {path:'/certifications',Component:Certification},
     {path:'/password-reset/:token',Component:Recuperation},
     {path:'/reset',Component:PassReset},
 ]}
-
-
     ,
     {Component:AdminLayout,children:[
         {path:"/",Component:Landing}

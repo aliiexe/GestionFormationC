@@ -27,4 +27,9 @@ class Theme extends Model
     {
         return $this->hasMany(Plan::class);
     }
+
+    public function actions()
+    {
+        return $this->hasMany(Action::class);
+    }
 }

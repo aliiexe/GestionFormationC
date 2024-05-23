@@ -10,6 +10,27 @@ import {Link} from "react-router-dom"
 import { axiosclient } from "../api/axiosClient";
 import Card from "antd/es/card/Card";
 import Sponsors from "../components/Landing/Sponsors";
+import lottie from 'lottie-web';
+import animationData from '../assets/1716498124751.json';
+import {  Collapse  } from 'antd';
+
+const items = [
+    {
+      key: '1',
+      label: 'Qu\'est-ce que la formation continue?',
+      children: <p>La formation continue est un système d&apos;enseignement destiné aux individus en activité professionnelle. Elle permet de développer des compétences, d&apos;acquérir de nouvelles qualifications et de se former à de nouveaux métiers.</p>,
+    },
+    {
+      key: '2',
+      label: 'Pourquoi choisir la formation continue?',
+      children: <p>Choisir la formation continue, c&apos;est choisir de se former tout au long de sa vie professionnelle. C&apos;est un excellent moyen de rester compétitif sur le marché du travail, d&apos;évoluer dans sa carrière et de s&apos;adapter aux nouvelles technologies et méthodes de travail.</p>,
+    },
+    {
+      key: '3',
+      label: 'Comment financer sa formation continue?',
+      children: <p>Il existe plusieurs moyens de financer sa formation continue : le compte personnel de formation (CPF), le plan de développement des compétences, le congé de formation professionnelle, etc. Il est également possible de demander une aide financière à son employeur ou à des organismes de financement.</p>,
+    },
+  ];
 
 export default function Landing() {
   const [formation, setFormation] = useState([]);
@@ -36,10 +57,9 @@ export default function Landing() {
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: 'https://lottie.host/a964cc86-6365-4ba7-858d-0affab6d2072/QGuF4mSHzf.json',
+      animationData: animationData,
     });
 
-    // Clean up the animation instance on component unmount
     return () => {
       animationInstance.destroy();
     };
@@ -48,7 +68,6 @@ export default function Landing() {
     <div>
       <Hero />
       <Feature />
-      <Sponsors />
         <div style={{textAlign:"center"}}><h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Nos formations</h1></div>
         <br></br>
     <div style={{display:"flex",justifyContent:"center",flexWrap:"wrap"}}>
@@ -75,7 +94,7 @@ export default function Landing() {
                 </a>
             </div>
         </div>
-        <div key={1} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+        <div key={2} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
             <a className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
                 <img className="object-cover" src={"images/img3.jpg"} alt="product image" />
                 <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">{formation.status}</span>
@@ -98,7 +117,7 @@ export default function Landing() {
                 </a>
             </div>
         </div>
-        <div key={1} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+        <div key={3} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
             <a className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
                 <img className="object-cover" src={"images/img2.jpg"} alt="product image" />
                 <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">{formation.status}</span>
@@ -121,21 +140,20 @@ export default function Landing() {
                 </a>
             </div>
         </div>
+        <Sponsors />
         </div>
         <br></br>
-        <div style={{textAlign:"center","fontWeight":"bold"}}>Voir tous les formations -> </div>
         <br></br>
 
-        <div style={{ display: "grid", gridTemplateColumns: "50% 50%", width: "100%","padding":"5%" }}>
-  <div id="lottie-container" style={{ height: "90%" }}>
-    {/* Animation content */}
-  </div>
-  <div style={{ width: "100%", height: "100%" }}>
-    <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Qui sommes nous</h1>
-    <p className="mt-6 text-lg leading-8 text-gray-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia quod quam vitae sequi odit molestias consequuntur at suscipit facilis saepe doloribus beatae, repellat animi temporibus sint numquam ad cumque voluptates!</p>
-  </div>
+        <div className="flex flex-col md:flex-row w-full p-5 pb-24 justify-center items-center gap-24">
+    <div id="lottie-container" className="md:block hidden w-full md:w-1/5" style={{ height: "80%" }}>
+    </div>
+    <div className="w-full md:w-1/2">
+        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">FAQ</h1>
+        <p className="mt-6 text-lg leading-8 text-gray-600"><Collapse accordion items={items} /></p>
+    </div>
 </div>
-
+    
       <Footer />
     </div>
   );

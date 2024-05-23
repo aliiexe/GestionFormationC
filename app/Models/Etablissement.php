@@ -23,4 +23,14 @@ class Etablissement extends Model
     {
         return $this->belongsTo(Region::class, 'regions_id');
     }
+
+    public function intervenants()
+    {
+        return $this->hasMany(Intervenant::class);
+    }
+
+    public function actions()
+    {
+        return $this->hasMany(Action::class);
+    }
 }

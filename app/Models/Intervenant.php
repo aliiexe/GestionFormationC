@@ -17,7 +17,7 @@ class Intervenant extends Model
         'nom',
         'dateNaissance',
         'typeintervenant',
-        'etablissements_id', // Assurez-vous que la table a cette colonne
+        'etablissements_id',
         'user_id',
         'image',
     ];
@@ -34,9 +34,14 @@ class Intervenant extends Model
 
     public function etablissement()
     {
-        return $this->belongsTo(Etablissement::class, 'etablissements_id'); // Assurez-vous que la clé étrangère est correcte
+        return $this->belongsTo(Etablissement::class, 'etablissements_id');
     }
     public function diplomes(){
         return $this->hasOne(Diplome::class,"intervenants_id");
+    }
+
+    public function actions()
+    {
+        return $this->hasMany(Action::class);
     }
 }
