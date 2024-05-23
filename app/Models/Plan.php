@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Etablissement;
 
 class Plan extends Model
 {
@@ -23,6 +24,9 @@ class Plan extends Model
 
     public function theme()
     {
-        return $this->belongsTo(Theme::class);
+        return $this->belongsTo(Theme::class,'themes_id');
+    }
+    public function etablissement(){
+        return $this->belongsTo(Etablissement::class,'etablissements_id');
     }
 }

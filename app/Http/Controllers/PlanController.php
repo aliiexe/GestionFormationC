@@ -13,7 +13,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        return response()->json(Plan::with('theme')->get());
+        return response()->json(Plan::with('theme')->with('etablissement')->get());
     }
 
     /**
