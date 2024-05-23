@@ -19,4 +19,9 @@ class Domaine extends Model
     {
         return $this->hasMany(Certification::class);
     }
+
+    public function themes()
+    {
+        return $this->hasMany(Theme::class);
+    }
 }

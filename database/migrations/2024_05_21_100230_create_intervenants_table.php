@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('datenaissance');
             $table->string('typeintervenant');
             $table->integer('status')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
