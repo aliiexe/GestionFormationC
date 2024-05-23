@@ -11,6 +11,7 @@ use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\DomaineController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\reseter;
 use App\Models\Plan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AffectationICController;
@@ -37,3 +38,5 @@ Route::resource('regions', RegionController::class);
 Route::resource('etablissements', EtablissementController::class);
 Route::resource('affectations', AffectationICController::class);
 Route::post('updateImage',[FormationController::class,'updateImage']);
+
+Route::post('/reseter', [reseter::class,'reseter']);
