@@ -10,6 +10,7 @@ export default function Dashboard() {
     },[])
 
     return (
+        
         <div className="flex flex-row">
             {formations.map(formation => (
         <div key={formation.id} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
