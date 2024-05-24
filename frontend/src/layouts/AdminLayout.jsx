@@ -56,6 +56,7 @@ export default function AdminLayout(){
         getItem(<Link to="/competences">Compétences</Link>, '6'),
         getItem(<Link to="/affectations">Affectation</Link>, '7'),
         getItem(<Link to="/etablissement">Etablissements</Link>, '8'),
+        getItem(<Link to="/action">Actions</Link>, '8'),
 
 
     ];
