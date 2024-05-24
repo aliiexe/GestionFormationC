@@ -31,16 +31,15 @@ class FormationController extends Controller
     {
         // return response()->json($request->file('image')->getClientOriginalName());
         $values = $request->all();
-        $image = $request->file('image');
-        $name = date('YmdHis').'.'.$image->getClientOriginalExtension();
-        $image->move('../frontend/public/images',$name);
+        // $image = $request->file('image');
+        // $name = date('YmdHis').'.'.$image->getClientOriginalExtension();
+        // $image->move('../frontend/public/images',$name);
         $formation = new Theme([
             'intitule_theme' => $values['intitule_theme'],
             'duree_formation' => $values['duree_formation'],
-            'description' => $values['description'],
-            'image' => $name
+            'domaines_id' => $values['domaines_id'],
+            // 'image' => $name
         ]);
-        $formation->domaines_id = 1;
         $formation->save();
     }
 

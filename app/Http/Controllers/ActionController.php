@@ -12,7 +12,7 @@ class ActionController extends Controller
      */
     public function index()
     {
-        return response()->json(Action::all());
+        return response()->json(Action::with('entreprises','themes','intervenants','etablissements')->get());
     }
 
     /**
@@ -62,10 +62,10 @@ class ActionController extends Controller
     public function update(Request $request, Action $action)
     {
         $action = Action::find($request->id);
-        $action->date_debut_real = $request->date_debut_real;
-        $action->date_fin_real = $request->date_fin_real;
-        $action->prix_real = $request->prix_real;
-        $action->statut = $request->statut;
+        // $action->date_debut_real = $request->date_debut_real;
+        // $action->date_fin_real = $request->date_fin_real;
+        // $action->prix_real = $request->prix_real;
+        $action->status = $request->statut;
         $action->save();
     }
 

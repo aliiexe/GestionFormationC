@@ -21,6 +21,7 @@ import {
 } from 'antd';
 import { PlusOutlined, DeleteOutlined, EditOutlined, UploadOutlined } from '@ant-design/icons';
 import { axiosclient } from "../../api/axiosClient";
+import { get } from "react-hook-form";
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -34,6 +35,8 @@ export default function Intervenant() {
     const [image, setImage] = useState();
     const [intitule_theme, setIntitule_theme] = useState();
     const [duree_formation, setDuree_formation] = useState();
+    const [domaines, setDomaines] = useState([]);
+    const [domaine, setDomaine] = useState();
     const [description, setDescription] = useState();
     const [updFormation, setUpdateFormation] = useState();
 
@@ -58,20 +61,20 @@ export default function Intervenant() {
             render: (text) => <a>{text.intitule_theme}</a>,
         },
         {
-            title: 'Description',
+            title: 'Domaine',
             key: 'name',
-            render: (text) => <a>{text.description}</a>,
+            render: (text) => <a>{text.domaines?.nom_domaine}</a>,
         },
         {
             title: 'Duree formation',
             key: 'name',
             render: (text) => <a>{text.duree_formation}</a>,
         },
-        {
-            title: 'Image',
-            key: 'name',
-            render: (img) => <img style={{"width":"100px"}} src={"images/"+img.image}></img>
-        },
+        // {
+        //     title: 'Image',
+        //     key: 'name',
+        //     render: (img) => <img style={{"width":"100px"}} src={"images/"+img.image}></img>
+        // },
         {
             title: 'Action',
             key: 'action',
@@ -116,8 +119,9 @@ export default function Intervenant() {
         const formData = new FormData();
         formData.append('intitule_theme', intitule_theme);
         formData.append('duree_formation', duree_formation);
-        formData.append('description', description);       
-        formData.append('image', image);
+        // formData.append('description', description);       
+        formData.append('domaines_id', domaine);
+        // formData.append('image', image);
         await axiosclient.post('/formation', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -138,6 +142,13 @@ export default function Intervenant() {
         });
     };
 
+    const getDomaines = async () => {
+        await axiosclient.get('/domaines').then((response) => {
+            setDomaines(response.data);
+            console.log(response.data);
+        });
+    };
+
     const handleChange = (e) => {
         setFormation({ ...formation, [e.target.name]: e.target.value });
     };
@@ -146,6 +157,7 @@ export default function Intervenant() {
 
     useEffect(() => {
         getFormations();
+        getDomaines();
     }, []);
 
     return (
@@ -186,7 +198,7 @@ export default function Intervenant() {
                     <Form.Item label="duree_formation" name={"duree_formation"} rules={[{ required: true, message: "please fill needed field" }]}>
                         <Input required={true} type="number" name="duree_formation" onChange={(e)=>setDuree_formation(e.target.value)} />
                     </Form.Item>
-                    <Form.Item label="description" name={"description"} rules={[{ required: true, message: "please fill needed field" }]}>
+                    <Form.Item label="description" name={"description"} >
                         <Input required={true} name="description" onChange={(e)=>setDescription(e.target.value)} />
                     </Form.Item>
                     <Form.Item >
@@ -240,10 +252,17 @@ export default function Intervenant() {
                 <Form.Item label="intitule_theme" name={"intitule_theme"} rules={[{ required: true, message: "please fill needed field" }]}>
                     <Input required={true} name="intitule_theme" onChange={(e)=>setIntitule_theme(e.target.value)} />
                 </Form.Item>
+                <Form.Item label="Thème" name="themes_id" rules={[{ required: true, message: "Veuillez sélectionner un thème" }]}>
+                    <Select onChange={(value) => setDomaine(value)}>
+                        {domaines?.map((e) => (
+                            <Select.Option value={e.id} key={e.id}>{e.nom_domaine}</Select.Option>
+                        ))}
+                    </Select>
+                </Form.Item>
                 <Form.Item label="duree_formation" name={"duree_formation"} rules={[{ required: true, message: "please fill needed field" }]}>
                     <Input required={true} type="number" name="duree_formation" onChange={(e)=>setDuree_formation(e.target.value)} />
                 </Form.Item>
-                <Form.Item label="description" name={"description"} rules={[{ required: true, message: "please fill needed field" }]}>
+                {/* <Form.Item label="description" name={"description"} rules={[{ required: true, message: "please fill needed field" }]}>
                     <Input required={true} name="description" onChange={(e)=>setDescription(e.target.value)} />
                 </Form.Item>
                 <Form.Item 
@@ -271,7 +290,7 @@ export default function Intervenant() {
                                 </div>
                               </button>
                             </Upload>
-                  </Form.Item>
+                  </Form.Item> */}
                 <Form.Item >
                     <Button onClick={createFormation}>Ajouter</Button>
                 </Form.Item>

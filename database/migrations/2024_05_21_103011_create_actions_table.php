@@ -23,9 +23,9 @@ return new class extends Migration
             $table->foreign('etablissements_id')->references('id')->on('etablissements')->onDelete('cascade')->onUpdate('cascade');
             $table->dateTime('date_debut_prev');
             $table->dateTime('date_fin_prev');
-            $table->dateTime('date_debut_real');
-            $table->dateTime('date_fin_real');
-            $table->float('prix_reel');
+            $table->dateTime('date_debut_real')->nullable();
+            $table->dateTime('date_fin_real')->nullable();
+            $table->float('prix_reel')->nullable();
             $table->integer('nbparticipants');
             $table->integer('status')->nullable();
             $table->timestamps();

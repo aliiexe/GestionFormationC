@@ -23,22 +23,22 @@ class Action extends Model
         'statut',
     ];
 
-    public function entreprise()
+    public function entreprises()
     {
         return $this->belongsTo(Entreprise::class);
     }
 
-    public function theme()
+    public function themes()
     {
         return $this->belongsTo(Theme::class);
     }
 
-    public function intervenant()
+    public function intervenants()
     {
         return $this->belongsTo(Intervenant::class);
     }
 
-    public function etablissement()
+    public function etablissements()
     {
         return $this->belongsTo(Etablissement::class);
     }

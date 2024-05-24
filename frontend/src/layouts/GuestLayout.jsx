@@ -50,7 +50,7 @@ const logout=()=>{
           <div className="hidden lg:flex lg:gap-x-12">
             <a className={"text-sm font-semibold leading-6 text-gray-900"}><Link to={"/"}>Acceuil</Link></a>
         
-              <Link key={1} to="/formation" className={"text-sm font-semibold leading-6 text-gray-900"}>
+              <Link key={1} to="/Formations" className={"text-sm font-semibold leading-6 text-gray-900"}>
               Formations
               </Link>
 

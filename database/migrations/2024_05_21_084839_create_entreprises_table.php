@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('nom');
             $table->string('raison');
             $table->string('email');
             $table->string('site');
@@ -22,8 +23,8 @@ return new class extends Migration
             $table->integer('status')->nullable();
             $table->string('representant');
             $table->string('Telephone1');
-            $table->string('Telephone2');
-            $table->string('Telephone3');
+            $table->string('Telephone2')->nullable();
+            $table->string('Telephone3')->nullable();
             $table->timestamps();
         });
     }

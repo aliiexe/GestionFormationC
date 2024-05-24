@@ -106,11 +106,11 @@ return(
                 </a>
                 <div className="mt-2 mb-5 flex items-center justify-between">
                     <p>
-                        <span className="text-3xl font-bold text-slate-900">{ele.theme.intitule_theme}</span>&nbsp;&nbsp;&nbsp;
-                        <br></br><span className="text-l text-slate-900">{ele.description}</span>
+                        <span className="text-3xl font-bold text-slate-900">{ele.description}</span>&nbsp;&nbsp;&nbsp;
+                        <br></br><span className="text-l text-slate-900">{ele.theme.intitule_theme}</span>
                     </p>
                 </div>
-                <Link to={"/Formations"}  className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                <Link to={"/Actions"}  className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                     <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M14.707 10.707a1 1 0 0 0-1.414-1.414L10 12.586 7.707 10.293a1 1 0 0 0-1.414 1.414l3 3a1 1 0 0 0 1.414 0l5-5z" />
                     </svg>
