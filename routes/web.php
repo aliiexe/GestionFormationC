@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ActionController;
-use App\Http\Controllers\AffectationICController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\DiplomeController;
@@ -17,6 +16,8 @@ use App\Http\Controllers\RegionController;
 use App\Http\Controllers\reseter;
 use App\Models\Plan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AffectationICController;
+
 
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
@@ -32,11 +33,12 @@ Route::resource('formation',FormationController::class);
 Route::resource('plan',PlanController::class);
 Route::resource('certifications',CertificationController::class);
 Route::resource('domaines',DomaineController::class);
-Route::resource('competence',CompetenceController::class);
+Route::resource('competences',CompetenceController::class);
 Route::resource('affectation',AffectationICController::class);
 Route::post('password/email', [PasswordResetLinkController::class,'store'])->name('password.email');
 Route::resource('regions', RegionController::class);
 Route::resource('etablissements', EtablissementController::class);
+Route::resource('affectations', AffectationICController::class);
 Route::post('updateImage',[FormationController::class,'updateImage']);
 Route::resource('action',ActionController::class);
 Route::post('/reseter', [reseter::class,'reseter']);

@@ -6,12 +6,12 @@ import { errorSignProps, errorParagraphProps } from '../animations/animationProp
 import './Form.css';
 import {Modal,Input, Button} from 'antd';
 import { useState } from 'react';
-import { axiosclient } from '../../../api/axiosClient.jsx'; 
+import { axiosclient } from '../../../api/axiosClient.jsx';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const formFields = [
-  
+
 
   {
     labelText: "Email",
@@ -30,7 +30,7 @@ const formFields = [
 
 const Form = ({ setIsOpen, setName, setOpenToS }) => {
   const schema = yup.object().shape({
-   
+
   });
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
@@ -51,14 +51,14 @@ const onSubmit = (data) => {
 axiosclient.post('/login',data).then((a)=>{
   if(a.status==200 || a.status==204){
     window.localStorage.setItem('token','true')
-   
+
   }
   if(data.email=="x@gmail.com"){
     navigate('/intervenants')
   }else{
     navigate('/')
   }
- 
+
 
 })})
 console.log(data)
@@ -95,7 +95,7 @@ console.log(data)
               {field.labelText}
             </span>
           </label>
-         
+
         </div>
       ))}
       <input type="submit" value="Se connecter" />
@@ -120,7 +120,7 @@ console.log(a)
              }} ><Button >Reintialiser mot de passe</Button></div>
 
       </div>
- 
+
       </Modal>
     </>
   );

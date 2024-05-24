@@ -12,14 +12,19 @@ class Certification extends Model
     protected $fillable = [
         'intitule_certification',
         'organisme_certification',
-        'type_certification',
-        'domaines_id',
-        'intervenants_id'
+        'typecertification',
+        'domaines_id'
     ];
 
-
-    public function intervenants()
+    /**
+     * Get the domaine that owns the certification.
+     */
+    public function domaine()
     {
-        return $this->belongsTo(Intervenant::class);
+        return $this->belongsTo(Domaine::class, 'domaines_id');
+    }
+    public function affectations()
+    {
+        return $this->hasMany(AffectationIC::class);
     }
 }

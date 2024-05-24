@@ -134,7 +134,7 @@ getIntervenants();
         title="Modifier intervenant"
         onOk={(e)=>console.log(e)}
         onCancel={() => setOpenEdit(false)}
-  
+
         footer={null}>
         <div style={{ padding: "10px" }}>
           <Form onFinish={(values)=>sendupdate(values)}

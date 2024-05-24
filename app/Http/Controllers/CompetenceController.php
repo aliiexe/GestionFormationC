@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Competence;
-use App\Models\Intervenant;
 
 class CompetenceController extends Controller
 {
@@ -16,15 +15,15 @@ class CompetenceController extends Controller
 
     public function create()
     {
-        $intervenants = Intervenant::all();
-        return response()->json(['intervenants' => $intervenants]);
+        // Ne récupère pas les intervenants
+        return response()->json([]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'libelle' => 'required|string|max:255',
-            'intervenants_id' => 'required|exists:intervenants,id',
+            'description' => 'nullable|string|max:255', // Ajout de la validation pour la description
         ]);
 
         $competence = Competence::create($request->all());
@@ -44,10 +43,9 @@ class CompetenceController extends Controller
     public function edit($id)
     {
         $competence = Competence::findOrFail($id);
-        $intervenants = Intervenant::all();
+
         return response()->json([
             'competence' => $competence,
-            'intervenants' => $intervenants
         ]);
     }
 
@@ -55,7 +53,7 @@ class CompetenceController extends Controller
     {
         $request->validate([
             'libelle' => 'required|string|max:255',
-            'intervenants_id' => 'required|exists:intervenants,id',
+            'description' => 'nullable|string|max:255', // Ajout de la validation pour la description
         ]);
 
         $competence = Competence::findOrFail($id);

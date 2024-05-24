@@ -12,10 +12,12 @@ import Region from '../pages/Admin/Region'
 import Intervenant from '../pages/Admin/Intervenant.jsx'
 import Etablissement from '../pages/Admin/Etablissement.jsx'
 import Domaine from '../pages/Admin/Domaine'
+import AffectationIC from '../pages/Admin/AffectationIC'
 import Plan from '../pages/Admin/Plan.jsx'
 import Action from '../pages/Admin/Actions.jsx'
 import Formation from '../pages/Admin/Formation.jsx'
 import PassReset from '../pages/PassReset/PassReset.jsx'
+import Competence from '../pages/Admin/Competence'
 import Dashboard from '../pages/Admin/Dashboard.jsx'
 import Formations from '../pages/Formations.jsx'
 import Actions from '../pages/Entreprise/Actions.jsx'
@@ -43,6 +45,9 @@ export const router=createBrowserRouter([
         {path:'/regions',Component:Region},
         {path:'/etablissement',Component:Etablissement},
         {path:'/domaines',Component:Domaine},
+        {path:'/certifications',Component:Certification},
+        {path:'/competences',Component:Competence},
+        {path:'/affectations',Component:AffectationIC},
         {path:'/dashboard',Component:Dashboard},
         {path:'/plan',Component:Plan},
         {path:'/action',Component:Action}

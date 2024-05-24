@@ -4,67 +4,63 @@ namespace App\Http\Controllers;
 
 use App\Models\AffectationIC;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AffectationICController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Afficher toutes les affectations IC
     public function index()
     {
-        return response()->json(AffectationIC::all());
+        return AffectationIC::with('intervenant', 'competence', 'certification')->paginate(10);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Afficher une affectation IC spécifique
+    public function show($id)
     {
-        //
+        return AffectationIC::with('intervenant', 'competence', 'certification')->findOrFail($id);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Créer une nouvelle affectation IC
     public function store(Request $request)
     {
-        $affectationIC = new AffectationIC();
-        $affectationIC->intervenant_id = $request->intervenant_id;
-        $affectationIC->competence_id = $request->competence_id;
-        $affectationIC->save();
+        $validator = Validator::make($request->all(), [
+            'intervenants_id' => 'required|integer',
+            'competences_id' => 'required|integer',
+            'certifications_id' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        return AffectationIC::create($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(AffectationIC $affectationIC)
+    // Mettre à jour une affectation IC existante
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'intervenants_id' => 'required|integer',
+            'competences_id' => 'required|integer',
+            'certifications_id' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $affectation = AffectationIC::findOrFail($id);
+        $affectation->update($request->all());
+
+        return $affectation;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AffectationIC $affectationIC)
+    // Supprimer une affectation IC existante
+    public function destroy($id)
     {
-        //
-    }
+        $affectation = AffectationIC::findOrFail($id);
+        $affectation->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, AffectationIC $affectationIC)
-    {
-        $affectationIC->intervenant_id = $request->intervenant_id;
-        $affectationIC->competence_id = $request->competence_id;
-        $affectationIC->save();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(AffectationIC $affectationIC)
-    {
-        $affectationIC->delete();
+        return response()->json(null, 204);
     }
 }
